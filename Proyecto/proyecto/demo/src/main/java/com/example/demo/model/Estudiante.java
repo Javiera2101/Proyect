@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+
 @Entity
 @Table(name = "estudiante")
 public class Estudiante {
@@ -13,6 +14,7 @@ public class Estudiante {
     private String nombre_estudiante;
     private String correo_estudiante;
     private String carrera_estudiante;
+    private String rol_estudiante;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,5 +43,11 @@ public class Estudiante {
         this.carrera_estudiante = carrera_estudiante;
     }
 
+    public String getrol_estudiante() {
+        return rol_estudiante;
+    }
+    public void setrol_estudiante(String rol_estudiante) {
+        this.rol_estudiante = rol_estudiante;
+    }
 
 }
