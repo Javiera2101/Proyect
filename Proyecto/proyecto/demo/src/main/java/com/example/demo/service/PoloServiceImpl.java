@@ -26,4 +26,11 @@ public class PoloServiceImpl implements PoloService {
     public void agregarPolo(Polo polo) {
         repPolo.save(polo);
     }
+
+    @Override
+    public void asignarRol(int idPolo, String rol){
+        Polo polo=repPolo.findById(idPolo).orElseThrow(()-> new RuntimeException("Ususario no encontrado"));
+        polo.setRol(rol);  
+        repPolo.save(polo);   
+    }
 }

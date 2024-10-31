@@ -14,6 +14,7 @@ public class Polo {
     private String correo_polo;
     private String contrasena_polo;
     private int num_telefono;
+    private String rol;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +47,12 @@ public class Polo {
     }
     public void setNum_telefono(int num_telefono) {
         this.num_telefono = num_telefono;
+    }
+    public String getRol(){
+        return rol;
+    }
+    public void setRol(String rol){
+        this.rol=rol;
     }
 
     
