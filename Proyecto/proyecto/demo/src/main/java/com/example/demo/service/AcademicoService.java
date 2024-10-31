@@ -13,4 +13,6 @@ public interface AcademicoService {
     public void Guardar(Academico academico);
     
     public void BorrarAcademicoPorId(int id);
+
+    public Academico registrarAcademico(Academico academico);
 }

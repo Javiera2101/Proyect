@@ -14,4 +14,5 @@ public interface EstudianteService {
     
     public void BorrarEstudiantePorId(int id);
 
+    public Estudiante registrarEstudiante(Estudiante estudiante);
 }

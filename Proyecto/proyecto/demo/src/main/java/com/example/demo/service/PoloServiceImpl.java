@@ -26,4 +26,10 @@ public class PoloServiceImpl implements PoloService {
     public void agregarPolo(Polo polo) {
         repPolo.save(polo);
     }
+
+    @Override
+    public Polo registrarPolo(Polo polo) {
+        // Aquí podrías agregar validaciones, como verificar si el correo ya existe
+        return repPolo.save(polo);
+    }
 }

@@ -14,7 +14,7 @@ public class Estudiante {
     private String nombre_estudiante;
     private String correo_estudiante;
     private String carrera_estudiante;
-    private String rol_estudiante;
+    private String contrasena_estudiante;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,11 +43,11 @@ public class Estudiante {
         this.carrera_estudiante = carrera_estudiante;
     }
 
-    public String getrol_estudiante() {
-        return rol_estudiante;
+    public String getcontrasena_estudiante() {
+        return contrasena_estudiante;
     }
-    public void setrol_estudiante(String rol_estudiante) {
-        this.rol_estudiante = rol_estudiante;
+    public void setcontrasena_estudiante(String contrasena_estudiante) {
+        this.contrasena_estudiante = contrasena_estudiante;
     }
 
 }
