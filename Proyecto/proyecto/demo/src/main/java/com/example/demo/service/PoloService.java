@@ -9,4 +9,6 @@ public interface PoloService {
     public List<Polo> buscarPolo();
 
     public void agregarPolo(Polo polo);
+
+    public void asignarRol(int idPolo, String rol);
 }
