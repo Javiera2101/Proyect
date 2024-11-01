@@ -1,25 +1,18 @@
 package com.example.demo.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import lombok.RequiredArgsConstructor;
-
-@RestController
-@RequestMapping("/private")
-@RequiredArgsConstructor
+@Controller
 public class HomeController {
     
-    @GetMapping("/home")
+    @GetMapping({"/", "/home", "/index"})
     public String home(){
-        return "Private Home";
+        return "index";
     }
 
-    @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String admin(){
-        return "Admin";
+    @GetMapping("/login")
+    public String login() {
+        return "login"; // Esto se refiere a login.html en la carpeta templates
     }
 }
