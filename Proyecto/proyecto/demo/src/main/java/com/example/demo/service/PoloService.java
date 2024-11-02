@@ -11,4 +11,7 @@ public interface PoloService {
     public void agregarPolo(Polo polo);
 
     public Polo registrarPolo(Polo polo);
+
+    public void asignarRol(int idPolo, String rol);
+
 }
