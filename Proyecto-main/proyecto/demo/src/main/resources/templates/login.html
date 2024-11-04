@@ -104,7 +104,6 @@
                     data: JSON.stringify(formData),
                     success: function(response) {
                         alert('Inicio de sesión exitoso. Tipo de usuario: ' + response.tipoUsuario);
-                        // Aquí puedes redirigir al usuario a la página correspondiente según su tipo
                     },
                     error: function(xhr) {
                         alert('Error en el inicio de sesión: ' + xhr.responseJSON.error);
