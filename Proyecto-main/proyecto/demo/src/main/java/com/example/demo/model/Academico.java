@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,37 +10,46 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "academico")
 public class Academico {
-    private int id_academico;
-    private String nom_academico;
-    private String correo_ubb;
-    private String contrasena_academico;
+    @Column(name = "id_academico")
+    private int idAcademico;
+
+    @Column(name = "nom_academico")
+    private String nomAcademico;
+
+    @Column(name = "correo_ubb")
+    private String correoUbb;
+
+    @Column(name = "contrasena_academico")
+    private String contrasenaAcademico;
+
+
     private String departamento;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId_academico() {
-        return id_academico;
+    public int getIdAcademico() {
+        return idAcademico;
     }
-    public void setId_academico(int id_academico) {
-        this.id_academico = id_academico;
+    public void setIdAcademico(int idAcademico) {
+        this.idAcademico = idAcademico;
     }
-    public String getNom_academico() {
-        return nom_academico;
+    public String getNomAcademico() {
+        return nomAcademico;
     }
-    public void setNom_academico(String nom_academico) {
-        this.nom_academico = nom_academico;
+    public void setNomAcademico(String nomAcademico) {
+        this.nomAcademico = nomAcademico;
     }
-    public String getCorreo_ubb() {
-        return correo_ubb;
+    public String getCorreoUbb() {
+        return correoUbb;
     }
-    public void setCorreo_ubb(String correo_ubb) {
-        this.correo_ubb = correo_ubb;
+    public void setCorreoUbb(String correoUbb) {
+        this.correoUbb = correoUbb;
     }
-    public String getContrasena_academico() {
-        return contrasena_academico;
+    public String getContrasenaAcademico() {
+        return contrasenaAcademico;
     }
-    public void setContrasena_academico(String contrasena_academico) {
-        this.contrasena_academico = contrasena_academico;
+    public void setContrasenaAcademico(String contrasenaAcademico) {
+        this.contrasenaAcademico = contrasenaAcademico;
     }
     public String getDepartamento() {
         return departamento;

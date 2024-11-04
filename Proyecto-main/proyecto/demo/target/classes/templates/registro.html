@@ -45,6 +45,15 @@
             border-color: var(--ubb-blue);
             box-shadow: 0 0 0 0.2rem rgba(0,60,113,0.25);
         }
+        .error-message {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        .form-control.is-invalid {
+            border-color: red;
+        }
     </style>
 </head>
 <body>
@@ -72,27 +81,31 @@
         <div class="row justify-content-center">
             <div class="col-md-6 form-container">
                 <h2 class="text-center mb-4 text-ubb-blue">Registro de Usuario</h2>
-                <form id="registroForm">
+                <form id="registroForm" novalidate>
                     <div class="mb-3">
-                        <label for="tipoUsuario" class="form-label">Tipo de Usuario</label>
+                        <label for="tipoUsuario" class="form-label">Tipo de Usuario*</label>
                         <select class="form-select" id="tipoUsuario" required>
                             <option value="">Seleccione un tipo</option>
                             <option value="academico">Académico</option>
                             <option value="estudiante">Estudiante</option>
                             <option value="polo">Polo</option>
                         </select>
+                        <div class="error-message" id="tipoUsuario-error">Por favor seleccione un tipo de usuario</div>
                     </div>
                     <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre</label>
+                        <label for="nombre" class="form-label">Nombre Completo*</label>
                         <input type="text" class="form-control" id="nombre" required>
+                        <div class="error-message" id="nombre-error">Por favor ingrese su nombre completo</div>
                     </div>
                     <div class="mb-3">
-                        <label for="correo" class="form-label">Correo</label>
+                        <label for="correo" class="form-label">Correo Electrónico*</label>
                         <input type="email" class="form-control" id="correo" required>
+                        <div class="error-message" id="correo-error">Por favor ingrese un correo electrónico válido</div>
                     </div>
                     <div class="mb-3">
-                        <label for="contrasena" class="form-label">Contraseña</label>
+                        <label for="contrasena" class="form-label">Contraseña*</label>
                         <input type="password" class="form-control" id="contrasena" required>
+                        <div class="error-message" id="contrasena-error">La contraseña debe tener al menos 6 caracteres</div>
                     </div>
                     <div id="camposAdicionales"></div>
                     <button type="submit" class="btn btn-ubb-orange w-100">Registrar</button>
@@ -105,24 +118,167 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+            // Función para mostrar mensajes de error
+            function showError(elementId, show) {
+                const errorElement = $(`#${elementId}-error`);
+                const inputElement = $(`#${elementId}`);
+                if (show) {
+                    errorElement.show();
+                    inputElement.addClass('is-invalid');
+                } else {
+                    errorElement.hide();
+                    inputElement.removeClass('is-invalid');
+                }
+            }
+
+            // Función para validar email
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+
+            // Manejo de campos adicionales según tipo de usuario
             $('#tipoUsuario').change(function() {
                 var tipo = $(this).val();
                 var camposAdicionales = $('#camposAdicionales');
                 camposAdicionales.empty();
 
                 if (tipo === 'academico') {
-                    camposAdicionales.append('<div class="mb-3"><label for="departamento" class="form-label">Departamento</label><input type="text" class="form-control" id="departamento"></div>');
+                    camposAdicionales.append(`
+                        <div class="mb-3">
+                            <label for="departamento" class="form-label">Departamento*</label>
+                            <input type="text" class="form-control" id="departamento" required>
+                            <div class="error-message" id="departamento-error">Por favor ingrese su departamento</div>
+                        </div>
+                    `);
                 } else if (tipo === 'estudiante') {
-                    camposAdicionales.append('<div class="mb-3"><label for="carrera" class="form-label">Carrera</label><input type="text" class="form-control" id="carrera"></div>');
+                    camposAdicionales.append(`
+                        <div class="mb-3">
+                            <label for="carrera" class="form-label">Carrera*</label>
+                                                        <input type="text" class="form-control" id="carrera" required>
+                            <div class="error-message" id="carrera-error">Por favor ingrese su carrera</div>
+                        </div>
+                    `);
                 } else if (tipo === 'polo') {
-                    camposAdicionales.append('<div class="mb-3"><label for="numTelefono" class="form-label">Número de Teléfono</label><input type="tel" class="form-control" id="numTelefono"></div>');
+                    camposAdicionales.append(`
+                        <div class="mb-3">
+                            <label for="numTelefono" class="form-label">Número de Teléfono*</label>
+                            <input type="tel" class="form-control" id="numTelefono" required>
+                            <div class="error-message" id="numTelefono-error">Por favor ingrese un número de teléfono válido</div>
+                        </div>
+                    `);
                 }
             });
 
+            // Validación del formulario
             $('#registroForm').submit(function(e) {
                 e.preventDefault();
-                // Aquí iría la lógica para enviar los datos del formulario
-                alert('Formulario enviado (simulación)');
+                let isValid = true;
+
+                // Validar tipo de usuario
+                if (!$('#tipoUsuario').val()) {
+                    showError('tipoUsuario', true);
+                    isValid = false;
+                } else {
+                    showError('tipoUsuario', false);
+                }
+
+                // Validar nombre
+                if (!$('#nombre').val().trim()) {
+                    showError('nombre', true);
+                    isValid = false;
+                } else {
+                    showError('nombre', false);
+                }
+
+                // Validar correo
+                if (!validateEmail($('#correo').val())) {
+                    showError('correo', true);
+                    isValid = false;
+                } else {
+                    showError('correo', false);
+                }
+
+                // Validar contraseña
+                if ($('#contrasena').val().length < 6) {
+                    showError('contrasena', true);
+                    isValid = false;
+                } else {
+                    showError('contrasena', false);
+                }
+
+                // Validar campos adicionales según el tipo de usuario
+                const tipoUsuario = $('#tipoUsuario').val();
+                if (tipoUsuario === 'academico') {
+                    if (!$('#departamento').val().trim()) {
+                        showError('departamento', true);
+                        isValid = false;
+                    } else {
+                        showError('departamento', false);
+                    }
+                } else if (tipoUsuario === 'estudiante') {
+                    if (!$('#carrera').val().trim()) {
+                        showError('carrera', true);
+                        isValid = false;
+                    } else {
+                        showError('carrera', false);
+                    }
+                } else if (tipoUsuario === 'polo') {
+                    if (!$('#numTelefono').val().trim() || !/^\d{9}$/.test($('#numTelefono').val())) {
+                        showError('numTelefono', true);
+                        isValid = false;
+                    } else {
+                        showError('numTelefono', false);
+                    }
+                }
+
+                // Si todo es válido, enviar el formulario
+                if (isValid) {
+                    const formData = {
+                        tipoUsuario: $('#tipoUsuario').val(),
+                        nombre: $('#nombre').val().trim(),
+                        correo: $('#correo').val().trim(),
+                        contrasena: $('#contrasena').val()
+                    };
+
+                    // Agregar campos adicionales según el tipo de usuario
+                    if (tipoUsuario === 'academico') {
+                        formData.departamento = $('#departamento').val().trim();
+                    } else if (tipoUsuario === 'estudiante') {
+                        formData.carrera = $('#carrera').val().trim();
+                    } else if (tipoUsuario === 'polo') {
+                        formData.numTelefono = $('#numTelefono').val().trim();
+                    }
+
+                    // Enviar datos al servidor
+                    $.ajax({
+                        url: '/registro',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(formData),
+                        success: function(response) {
+                            alert('Registro exitoso');
+                            window.location.href = '/';  // Redirigir al inicio
+                        },
+                        error: function(xhr, status, error) {
+                            let errorMessage = 'Error en el registro';
+                            try {
+                                errorMessage = JSON.parse(xhr.responseText).message || errorMessage;
+                            } catch (e) {
+                                errorMessage = xhr.responseText || errorMessage;
+                            }
+                            alert(errorMessage);
+                        }
+                    });
+                }
+            });
+
+            // Validaciones en tiempo real
+            $('#nombre, #correo, #contrasena, #departamento, #carrera, #numTelefono').on('input', function() {
+                const id = $(this).attr('id');
+                if ($(this).val().trim()) {
+                    showError(id, false);
+                }
             });
         });
     </script>

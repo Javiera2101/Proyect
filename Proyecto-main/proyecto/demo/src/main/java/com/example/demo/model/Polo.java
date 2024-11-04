@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,43 +10,52 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name= "polo")
 public class Polo {
-    private int id_polo;
-    private String nombre_polo;
-    private String correo_polo;
-    private String contrasena_polo;
-    private int num_telefono;
+    @Column(name = "id_polo")
+    private int idPolo;
+
+    @Column(name = "nombre_polo")
+    private String nombrePolo;
+
+    @Column(name = "correo_polo")
+    private String correoPolo;
+
+    @Column(name = "contrasena_polo")
+    private String contrasenaPolo;
+
+    @Column(name = "num_telefono")
+    private int numTelefono;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId_polo() {
-        return id_polo;
+    public int getIdPolo() {
+        return idPolo;
     }
-    public void setId_polo(int id_polo) {
-        this.id_polo = id_polo;
+    public void setIdPolo(int idPolo) {
+        this.idPolo = idPolo;
     }
-    public String getNombre_polo() {
-        return nombre_polo;
+    public String getNombrePolo() {
+        return nombrePolo;
     }
-    public void setNombre_polo(String nombre_polo) {
-        this.nombre_polo = nombre_polo;
+    public void setNombrePolo(String nombrePolo) {
+        this.nombrePolo = nombrePolo;
     }
-    public String getCorreo_polo() {
-        return correo_polo;
+    public String getCorreoPolo() {
+        return correoPolo;
     }
-    public void setCorreo_polo(String correo_polo) {
-        this.correo_polo = correo_polo;
+    public void setCorreoPolo(String correoPolo) {
+        this.correoPolo = correoPolo;
     }
-    public String getContrasena_polo() {
-        return contrasena_polo;
+    public String getContrasenaPolo() {
+        return contrasenaPolo;
     }
-    public void setContrasena_polo(String contrasena_polo) {
-        this.contrasena_polo = contrasena_polo;
+    public void setContrasenaPolo(String contrasenaPolo) {
+        this.contrasenaPolo = contrasenaPolo;
     }
-    public int getNum_telefono() {
-        return num_telefono;
+    public int getNumTelefono() {
+        return numTelefono;
     }
-    public void setNum_telefono(int num_telefono) {
-        this.num_telefono = num_telefono;
+    public void setNumTelefono(int numTelefono) {
+        this.numTelefono = numTelefono;
     }
 
     

@@ -43,26 +43,26 @@ public class RegistroController {
             switch (tipoUsuario) {
                 case "academico":
                     Academico academico = new Academico();
-                    academico.setNom_academico(datos.get("nombre"));
-                    academico.setCorreo_ubb(datos.get("correo"));
-                    academico.setContrasena_academico(datos.get("contrasena"));
+                    academico.setNomAcademico(datos.get("nombre"));
+                    academico.setCorreoUbb(datos.get("correo"));
+                    academico.setContrasenaAcademico(datos.get("contrasena"));
                     academico.setDepartamento(datos.get("departamento"));
                     academicoService.registrarAcademico(academico);
                     break;
                 case "estudiante":
                     Estudiante estudiante = new Estudiante();
-                    estudiante.setNombre_estudiante(datos.get("nombre"));
-                    estudiante.setCorreo_estudiante(datos.get("correo"));
-                    estudiante.setContrasena_estudiante(datos.get("contrasena"));
-                    estudiante.setCarrera_estudiante(datos.get("carrera"));
+                    estudiante.setNombreEstudiante(datos.get("nombre"));
+                    estudiante.setCorreoEstudiante(datos.get("correo"));
+                    estudiante.setContrasenaEstudiante(datos.get("contrasena"));
+                    estudiante.setCarreraEstudiante(datos.get("carrera"));
                     estudianteService.registrarEstudiante(estudiante);
                     break;
                 case "polo":
                     Polo polo = new Polo();
-                    polo.setNombre_polo(datos.get("nombre"));
-                    polo.setCorreo_polo(datos.get("correo"));
-                    polo.setContrasena_polo(datos.get("contrasena"));
-                    polo.setNum_telefono(Integer.parseInt(datos.get("numTelefono")));
+                    polo.setNombrePolo(datos.get("nombre"));
+                    polo.setCorreoPolo(datos.get("correo"));
+                    polo.setContrasenaPolo(datos.get("contrasena"));
+                    polo.setNumTelefono(Integer.parseInt(datos.get("numTelefono")));
                     poloService.registrarPolo(polo); // Corregido de "po zoService" a "poloService"
                     break;
                 default:

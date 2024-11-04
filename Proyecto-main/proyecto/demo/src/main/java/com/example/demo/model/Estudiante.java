@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,45 +10,54 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "estudiante")
 public class Estudiante {
-    private int id_estudiante;
-    private String nombre_estudiante;
-    private String correo_estudiante;
-    private String contrasena_estudiante;
-    private String carrera_estudiante;
+    @Column(name = "id_estudiante")
+    private int idEstudiante;
+
+    @Column(name = "nombre_estudiante")
+    private String nombreEstudiante;
+
+    @Column(name = "correo_estudiante")
+    private String correoEstudiante;
+
+    @Column(name = "contrasena_estudiante")
+    private String contrasenaEstudiante;
+
+    @Column(name = "carrera_estudiante")
+    private String carreraEstudiante;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId_estudiante() {
-        return id_estudiante;
+    public int getIdEstudiante() {
+        return idEstudiante;
     }
-    public void setId_estudiante(int id_estudiante) {
-        this.id_estudiante = id_estudiante;
+    public void setIdEstudiante(int idEstudiante) {
+        this.idEstudiante = idEstudiante;
     }
-    public String getNombre_estudiante() {
-        return nombre_estudiante;
+    public String getNombreEstudiante() {
+        return nombreEstudiante;
     }
-    public void setNombre_estudiante(String nombre_estudiante) {
-        this.nombre_estudiante = nombre_estudiante;
+    public void setNombreEstudiante(String nombreEstudiante) {
+        this.nombreEstudiante = nombreEstudiante;
     }
-    public String getCorreo_estudiante() {
-        return correo_estudiante;
+    public String getCorreoEstudiante() {
+        return correoEstudiante;
     }
-    public void setCorreo_estudiante(String correo_estudiante) {
-        this.correo_estudiante = correo_estudiante;
+    public void setCorreoEstudiante(String correoEstudiante) {
+        this.correoEstudiante = correoEstudiante;
     }
-    public String getCarrera_estudiante() {
-        return carrera_estudiante;
+    public String getCarreraEstudiante() {
+        return carreraEstudiante;
     }
-    public void setCarrera_estudiante(String carrera_estudiante) {
-        this.carrera_estudiante = carrera_estudiante;
-    }
-
-    public String getContrasena_estudiante() {
-        return contrasena_estudiante;
+    public void setCarreraEstudiante(String carreraEstudiante) {
+        this.carreraEstudiante = carreraEstudiante;
     }
 
-    public void setContrasena_estudiante(String contrasena_estudiante) {
-        this.contrasena_estudiante = contrasena_estudiante;
+    public String getContrasenaEstudiante() {
+        return contrasenaEstudiante;
+    }
+
+    public void setContrasenaEstudiante(String contrasenaEstudiante) {
+        this.contrasenaEstudiante = contrasenaEstudiante;
     }
 
 
