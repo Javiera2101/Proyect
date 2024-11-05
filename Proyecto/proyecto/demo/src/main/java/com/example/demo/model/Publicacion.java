@@ -1,10 +1,10 @@
-package com.example.demo.model;
+    package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class publicación {
+public class Publicacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +21,11 @@ public class publicación {
     private Polo polo;
 
     // Constructor vacío requerido por JPA
-    public publicación() {
+    public Publicacion() {
     }
 
     // Constructor con parámetros opcionales
-    public publicación(String nom_publicacion, String gestionar, String categoria, Polo polo) {
+    public Publicacion(String nom_publicacion, String gestionar, String categoria, Polo polo) {
         this.nom_publicacion = nom_publicacion;
         this.gestionar = gestionar;
         this.categoria = categoria;
