@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.example.demo.model.Polo;
 
+
 public interface PoloService {
     
     public List<Polo> buscarPolo();
 
     public Polo registrarPolo(Polo polo);
+    public void asignarRol(int idPolo, String rol);
 }
