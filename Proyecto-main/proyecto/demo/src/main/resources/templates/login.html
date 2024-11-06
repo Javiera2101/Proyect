@@ -96,14 +96,15 @@
                     correo: $('#correo').val(),
                     contrasena: $('#contrasena').val()
                 };
-
+    
                 $.ajax({
                     url: '/login',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(formData),
                     success: function(response) {
-                        alert('Inicio de sesión exitoso. Tipo de usuario: ' + response.tipoUsuario);
+                        // Redirigir al dashboard correspondiente
+                        window.location.href = response.redirectUrl;
                     },
                     error: function(xhr) {
                         alert('Error en el inicio de sesión: ' + xhr.responseJSON.error);
