@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.demo.DemoApplicationTests" time="0.608" tests="1" errors="1" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.demo.service.PublicacionServiceTest" time="0.069" tests="9" errors="9" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="23"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -58,11 +58,76 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="67.0"/>
   </properties>
-  <testcase name="" classname="com.example.demo.DemoApplicationTests" time="0.608">
-    <error type="java.lang.NoSuchMethodError"><![CDATA[java.lang.NoSuchMethodError: 'org.junit.jupiter.api.extension.ExecutableInvoker org.junit.jupiter.api.extension.ExtensionContext.getExecutableInvoker()'
+  <testcase name="testEditarPublicacion" classname="com.example.demo.service.PublicacionServiceTest" time="0.008">
+    <error type="java.lang.Error"><![CDATA[java.lang.Error: 
+Unresolved compilation problem: 
+	ExtendWith cannot be resolved to a type
+
+	at com.example.demo.service.PublicacionServiceTest.<init>(PublicacionServiceTest.java:18)
 ]]></error>
-    <system-out><![CDATA[22:41:00.347 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.demo.DemoApplicationTests]: DemoApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-22:41:00.570 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.demo.DemoApplication for test class com.example.demo.DemoApplicationTests
-]]></system-out>
+  </testcase>
+  <testcase name="testEliminarPublicacion" classname="com.example.demo.service.PublicacionServiceTest" time="0.008">
+    <error type="java.lang.Error"><![CDATA[java.lang.Error: 
+Unresolved compilation problem: 
+	ExtendWith cannot be resolved to a type
+
+	at com.example.demo.service.PublicacionServiceTest.<init>(PublicacionServiceTest.java:18)
+]]></error>
+  </testcase>
+  <testcase name="testEliminarPublicacionNoExistente" classname="com.example.demo.service.PublicacionServiceTest" time="0.01">
+    <error type="java.lang.Error"><![CDATA[java.lang.Error: 
+Unresolved compilation problem: 
+	ExtendWith cannot be resolved to a type
+
+	at com.example.demo.service.PublicacionServiceTest.<init>(PublicacionServiceTest.java:18)
+]]></error>
+  </testcase>
+  <testcase name="testObtenerPublicacionesPorCategoria" classname="com.example.demo.service.PublicacionServiceTest" time="0.004">
+    <error type="java.lang.Error"><![CDATA[java.lang.Error: 
+Unresolved compilation problem: 
+	ExtendWith cannot be resolved to a type
+
+	at com.example.demo.service.PublicacionServiceTest.<init>(PublicacionServiceTest.java:18)
+]]></error>
+  </testcase>
+  <testcase name="testCrearPublicacion" classname="com.example.demo.service.PublicacionServiceTest" time="0">
+    <error type="java.lang.Error"><![CDATA[java.lang.Error: 
+Unresolved compilation problem: 
+	ExtendWith cannot be resolved to a type
+
+	at com.example.demo.service.PublicacionServiceTest.<init>(PublicacionServiceTest.java:18)
+]]></error>
+  </testcase>
+  <testcase name="testObtenerPublicacionesPorFecha" classname="com.example.demo.service.PublicacionServiceTest" time="0.009">
+    <error type="java.lang.Error"><![CDATA[java.lang.Error: 
+Unresolved compilation problem: 
+	ExtendWith cannot be resolved to a type
+
+	at com.example.demo.service.PublicacionServiceTest.<init>(PublicacionServiceTest.java:18)
+]]></error>
+  </testcase>
+  <testcase name="testObtenerPublicacionPorId" classname="com.example.demo.service.PublicacionServiceTest" time="0.005">
+    <error type="java.lang.Error"><![CDATA[java.lang.Error: 
+Unresolved compilation problem: 
+	ExtendWith cannot be resolved to a type
+
+	at com.example.demo.service.PublicacionServiceTest.<init>(PublicacionServiceTest.java:18)
+]]></error>
+  </testcase>
+  <testcase name="testObtenerPublicacionesPorRangoFechas" classname="com.example.demo.service.PublicacionServiceTest" time="0.002">
+    <error type="java.lang.Error"><![CDATA[java.lang.Error: 
+Unresolved compilation problem: 
+	ExtendWith cannot be resolved to a type
+
+	at com.example.demo.service.PublicacionServiceTest.<init>(PublicacionServiceTest.java:18)
+]]></error>
+  </testcase>
+  <testcase name="testObtenerPublicaciones" classname="com.example.demo.service.PublicacionServiceTest" time="0.003">
+    <error type="java.lang.Error"><![CDATA[java.lang.Error: 
+Unresolved compilation problem: 
+	ExtendWith cannot be resolved to a type
+
+	at com.example.demo.service.PublicacionServiceTest.<init>(PublicacionServiceTest.java:18)
+]]></error>
   </testcase>
 </testsuite>
