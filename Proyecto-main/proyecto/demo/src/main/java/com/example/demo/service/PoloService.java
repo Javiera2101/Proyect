@@ -9,4 +9,6 @@ public interface PoloService {
     public List<Polo> buscarPolo();
 
     public Polo registrarPolo(Polo polo);
+
+    public Polo buscarPorCorreo(String correo);
 }

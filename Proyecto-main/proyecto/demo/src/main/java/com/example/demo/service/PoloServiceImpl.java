@@ -27,4 +27,9 @@ public class PoloServiceImpl implements PoloService {
         // Aquí podrías agregar validaciones, como verificar si el correo ya existe
         return repPolo.save(polo);
     }
+
+    @Override
+    public Polo buscarPorCorreo(String correo) {
+        return repPolo.findByCorreoPolo(correo);
+    }
 }
