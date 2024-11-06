@@ -42,4 +42,9 @@ public class EstudianteServiceImpl implements EstudianteService{
         // Aquí podrías agregar validaciones, como verificar si el correo ya existe
         return repEstudiante.save(estudiante);
     }
+
+    @Override
+    public Estudiante buscarPorCorreo(String correo) {
+        return repEstudiante.findByCorreoEstudiante(correo);
+    }
 }

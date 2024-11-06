@@ -15,4 +15,6 @@ public interface AcademicoService {
     public void BorrarAcademicoPorId(int id);
 
     public Academico registrarAcademico(Academico academico);
+
+    Academico buscarPorCorreo(String correo);
 }

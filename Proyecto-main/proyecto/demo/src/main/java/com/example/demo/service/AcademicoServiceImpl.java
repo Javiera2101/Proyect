@@ -46,4 +46,9 @@ public class AcademicoServiceImpl implements AcademicoService{
         //}
         return repAcademico.save(academico);
     }
+
+    @Override
+    public Academico buscarPorCorreo(String correo) {
+        return repAcademico.findByCorreoUbb(correo);
+    }
 }
