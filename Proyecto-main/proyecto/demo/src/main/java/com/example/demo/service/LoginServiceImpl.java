@@ -44,4 +44,27 @@ public class LoginServiceImpl implements LoginService {
 
         throw new Exception("Credenciales inválidas");
     }
+
+    @Override
+    public String obtenerNombreUsuario(String correo) {
+        // Buscar en académicos
+        Academico academico = academicoRepository.findByCorreoUbb(correo);
+        if (academico != null) {
+            return academico.getNomAcademico(); // Retorna el nombre del académico
+        }
+
+        // Buscar en estudiantes
+        Estudiante estudiante = estudianteRepository.findByCorreoEstudiante(correo);
+        if (estudiante != null) {
+            return estudiante.getNombreEstudiante(); // Retorna el nombre del estudiante
+        }
+
+        // Buscar en polos
+        Polo polo = poloRepository.findByCorreoPolo(correo);
+        if (polo != null) {
+            return polo.getNombrePolo(); // Retorna el nombre del polo
+        }
+
+        return null; // Si no se encuentra el usuario, retorna null
+    }
 }
