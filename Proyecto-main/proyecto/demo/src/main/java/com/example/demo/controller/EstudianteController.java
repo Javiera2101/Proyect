@@ -17,7 +17,7 @@ import com.example.demo.service.EstudianteService;
 
 @RestController
 @RequestMapping("/estudiante")
-public class EstudienteController {
+public class EstudianteController {
     @Autowired
     EstudianteService estudianteService;
 
