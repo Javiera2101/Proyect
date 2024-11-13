@@ -27,4 +27,10 @@ public class PoloServiceImpl implements PoloService {
         // Aquí podrías agregar validaciones, como verificar si el correo ya existe
         return repPolo.save(polo);
     }
+    @Override
+public void asignarRol(int idPolo, String rol) {
+    Polo polo = repPolo.findById(idPolo).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    polo.setRol(rol);
+    repPolo.save(polo);
+}
 }

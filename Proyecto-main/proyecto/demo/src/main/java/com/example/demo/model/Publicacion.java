@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class publicación {
+public class Publicacion { 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_publicacion;
+    private Long idPublicacion; // Cambiar a camelCase
 
-    private String nom_publicacion;
+    private String nomPublicacion; // Cambiar a camelCase
     private String gestionar;
     private String categoria;
     private LocalDate fechaPublicacion;
@@ -21,12 +21,12 @@ public class publicación {
     private Polo polo;
 
     // Constructor vacío requerido por JPA
-    public publicación() {
+    public Publicacion() {
     }
 
     // Constructor con parámetros opcionales
-    public publicación(String nom_publicacion, String gestionar, String categoria, Polo polo) {
-        this.nom_publicacion = nom_publicacion;
+    public Publicacion(String nomPublicacion, String gestionar, String categoria, Polo polo) {
+        this.nomPublicacion = nomPublicacion;
         this.gestionar = gestionar;
         this.categoria = categoria;
         this.fechaPublicacion = LocalDate.now(); // La fecha será el día actual
@@ -34,20 +34,20 @@ public class publicación {
     }
 
     // Getters y Setters
-    public Long getId_publicacion() {
-        return id_publicacion;
+    public Long getIdPublicacion() { // Cambiar a camelCase
+        return idPublicacion;
     }
 
-    public void setId_publicacion(Long id_publicacion) {
-        this.id_publicacion = id_publicacion;
+    public void setIdPublicacion(Long idPublicacion) { // Cambiar a camelCase
+        this.idPublicacion = idPublicacion;
     }
 
-    public String getNom_publicacion() {
-        return nom_publicacion;
+    public String getNomPublicacion() { // Cambiar a camelCase
+        return nomPublicacion;
     }
 
-    public void setNom_publicacion(String nom_publicacion) {
-        this.nom_publicacion = nom_publicacion;
+    public void setNomPublicacion(String nomPublicacion) { // Cambiar a camelCase
+        this.nomPublicacion = nomPublicacion;
     }
 
     public String getGestionar() {

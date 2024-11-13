@@ -39,11 +39,11 @@ public class AcademicoServiceImpl implements AcademicoService{
     
     @Override
     public Academico registrarAcademico(Academico academico) {
-        // Aquí podrías agregar validaciones
-        // Por ejemplo, verificar que el correo termine en @ubb.cl
-        //if (!academico.getCorreo_ubb().endsWith("@ubb.cl")) {
-        //    throw new IllegalArgumentException("El correo debe ser institucional (@ubb.cl)");
-        //}
+        // Validación del correo
+        if (academico.getCorreoUbb() != null && !academico.getCorreoUbb().endsWith("@ubb.cl")) {
+            throw new IllegalArgumentException("El correo debe ser institucional (@ubb.cl)");
+        }
         return repAcademico.save(academico);
     }
+    
 }

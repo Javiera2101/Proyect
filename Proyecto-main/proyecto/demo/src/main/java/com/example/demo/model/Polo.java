@@ -25,6 +25,9 @@ public class Polo {
     @Column(name = "num_telefono")
     private int numTelefono;
 
+    @Column(name = " rol;")
+    private String rol;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdPolo() {
@@ -56,6 +59,12 @@ public class Polo {
     }
     public void setNumTelefono(int numTelefono) {
         this.numTelefono = numTelefono;
+    }
+    public String getRol() {
+        return rol;
+    }
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     
