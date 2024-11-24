@@ -17,4 +17,5 @@ public interface EstudianteService {
     public Estudiante registrarEstudiante(Estudiante estudiante);
 
     Estudiante buscarPorCorreo(String correo);
+
 }

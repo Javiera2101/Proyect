@@ -39,7 +39,6 @@ public class EstudianteServiceImpl implements EstudianteService{
     
     @Override
     public Estudiante registrarEstudiante(Estudiante estudiante) {
-        // Aquí podrías agregar validaciones, como verificar si el correo ya existe
         return repEstudiante.save(estudiante);
     }
 

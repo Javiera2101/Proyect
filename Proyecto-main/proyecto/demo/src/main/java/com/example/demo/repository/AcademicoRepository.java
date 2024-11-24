@@ -7,4 +7,3 @@ import com.example.demo.model.Academico;
 public interface AcademicoRepository extends JpaRepository <Academico, Integer>{
     Academico findByCorreoUbb(String correoUbb);
 }
-
