@@ -10,8 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "sugerencia_academico")
@@ -25,17 +23,12 @@ public class SugerenciaAcademico {
     @Column(name = "estado")
     private String estadoSugerenciaAcademico = "Pendiente"; // Estado por defecto
 
-    @NotBlank(message = "La descripción no puede estar vacía")
-    @Size(min = 10, max = 500, message = "La descripción debe tener entre 10 y 500 caracteres")
     @Column(name = "descripcion")
     private String descripcionSugerenciaAcademico;
 
-    @NotBlank(message = "El nombre de la sugerencia no puede estar vacío")
-    @Size(min = 5, max = 100, message = "El nombre debe tener entre 5 y 100 caracteres")
     @Column(name = "nombre_sugerencia")
     private String nombreSugerenciaAcademico;
 
-    // Cambiar el nombre de la columna para que coincida con la base de datos
     @Column(name = "fecha_creacion")
     private LocalDateTime fechaCreacionSugerenciaAcademico = LocalDateTime.now(); // Fecha actual por defecto
 
