@@ -6,4 +6,5 @@ import com.example.demo.model.Polo;
 
 public interface PoloRepository extends JpaRepository <Polo, Integer>{
     Polo findByCorreoPolo(String correoPolo);
+    boolean existsByCorreoPolo(String correo);
 }

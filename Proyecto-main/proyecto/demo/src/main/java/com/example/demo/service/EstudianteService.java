@@ -18,4 +18,5 @@ public interface EstudianteService {
 
     Estudiante buscarPorCorreo(String correo);
 
+    boolean existePorCorreo(String correo);
 }

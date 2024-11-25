@@ -16,4 +16,6 @@ public interface PoloService {
 
     public List<Academico> obtenerAcademicos();
     public List<Estudiante> obtenerEstudiantes();
+
+    boolean existePorCorreo(String correo);
 }
