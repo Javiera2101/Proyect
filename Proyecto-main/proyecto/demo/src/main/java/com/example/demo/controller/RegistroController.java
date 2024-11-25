@@ -46,7 +46,7 @@ public class RegistroController {
             switch (tipoUsuario) {
                 case "academico" -> {
                     if (academicoService.existePorCorreo(correo)) {
-                        return ResponseEntity.badRequest().body("El correo ya está registrado para un académico");
+                        return ResponseEntity.badRequest().body(Map.of("error", "El correo ya está registrado para un académico"));
                     }
                     Academico academico = new Academico();
                     academico.setNomAcademico(datos.get("nombre"));
@@ -57,7 +57,7 @@ public class RegistroController {
                 }
                 case "estudiante" -> {
                     if (estudianteService.existePorCorreo(correo)) {
-                        return ResponseEntity.badRequest().body("El correo ya está registrado para un estudiante");
+                        return ResponseEntity.badRequest().body(Map.of("error", "El correo ya está registrado para un estudiante"));
                     }
                     Estudiante estudiante = new Estudiante();
                     estudiante.setNombreEstudiante(datos.get("nombre"));
@@ -68,7 +68,7 @@ public class RegistroController {
                 }
                 case "polo" -> {
                     if (poloService.existePorCorreo(correo)) {
-                        return ResponseEntity.badRequest().body("El correo ya está registrado para un polo");
+                        return ResponseEntity.badRequest().body(Map.of("error", "El correo ya está registrado para un polo"));
                     }
                     Polo polo = new Polo();
                     polo.setNombrePolo(datos.get("nombre"));
@@ -78,12 +78,12 @@ public class RegistroController {
                     poloService.registrarPolo(polo);
                 }
                 default -> {
-                    return ResponseEntity.badRequest().body("Tipo de usuario no válido");
+                    return ResponseEntity.badRequest().body(Map.of("error", "Tipo de usuario no válido"));
                 }
             }
             return ResponseEntity.ok("Registro exitoso");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error en el registro: " + e.getMessage());
+            return ResponseEntity.badRequest().body(Map.of("error", "Error en el registro: " + e.getMessage()));
         }
     }
 }
