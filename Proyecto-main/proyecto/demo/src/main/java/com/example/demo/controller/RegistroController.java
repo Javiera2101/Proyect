@@ -14,6 +14,7 @@ import com.example.demo.model.Academico;
 import com.example.demo.model.Estudiante;
 import com.example.demo.model.Polo;
 import com.example.demo.service.AcademicoService;
+import com.example.demo.service.EmailValidationService;
 import com.example.demo.service.EstudianteService;
 import com.example.demo.service.PoloService;
 
@@ -29,6 +30,10 @@ public class RegistroController {
     @Autowired
     private PoloService poloService;
 
+    @Autowired
+    private EmailValidationService emailValidationService;
+
+
     @GetMapping("/registro")
     public String mostrarFormularioRegistro() {
         return "registro";
@@ -42,6 +47,11 @@ public class RegistroController {
         String correo = datos.get("correo");
         
         try {
+            // Validación de correo con ZeroBounce
+            if (!emailValidationService.isEmailValid(correo)) {
+                return ResponseEntity.badRequest().body(Map.of("error", "Correo electrónico inválido"));
+            }
+
             // Validación de correo único según el tipo de usuario
             switch (tipoUsuario) {
                 case "academico" -> {
