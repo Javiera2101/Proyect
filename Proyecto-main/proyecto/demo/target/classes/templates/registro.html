@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - POLO SALUD ÑUBLE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ubb-blue: #003C71;
+            --ubb-orange: #FF6B35;
+            --ubb-green: #4CAF50;
+            --ubb-yellow: #FFD100;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar-brand img {
+            transition: all 0.3s ease;
+        }
+        .navbar-brand img:hover {
+            transform: scale(1.1);
+        }
+        .bg-ubb-blue { background-color: var(--ubb-blue); }
+        .text-ubb-blue { color: var(--ubb-blue); }
+        .btn-ubb-orange {
+            background-color: var(--ubb-orange);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-ubb-orange:hover {
+            background-color: #e55a2b;
+            transform: translateY(-2px);
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-top: 50px;
+        }
+        .form-control:focus {
+            border-color: var(--ubb-blue);
+            box-shadow: 0 0 0 0.2rem rgba(0,60,113,0.25);
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg bg-ubb-blue navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/images/logo-ubb.png" alt="UBB Logo" height="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Formulario de Registro -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 form-container">
+                <h2 class="text-center mb-4 text-ubb-blue">Registro de Usuario</h2>
+                <form id="registroForm">
+                    <div class="mb-3">
+                        <label for="tipoUsuario" class="form-label">Tipo de Usuario</label>
+                        <select class="form-select" id="tipoUsuario" required>
+                            <option value="">Seleccione un tipo</option>
+                            <option value="academico">Académico</option>
+                            <option value="estudiante">Estudiante</option>
+                            <option value="polo">Polo</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="correo" class="form-label">Correo</label>
+                        <input type="email" class="form-control" id="correo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contrasena" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="contrasena" required>
+                    </div>
+                    <div id="camposAdicionales"></div>
+                    <button type="submit" class="btn btn-ubb-orange w-100">Registrar</button>
+                </form>
+
+                <div id="mensajeError" class="text-danger text-center" style="display: none;"></div>
+                <div id="mensajeExito" class="text-success text-center" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#registroForm').submit(function(e) {
+                e.preventDefault(); // Evita el envío normal del formulario
+    
+                // Recolectar datos del formulario
+                var formData = {
+                    tipoUsuario: $('#tipoUsuario').val(),
+                    nombre: $('#nombre').val(),
+                    correo: $('#correo').val(),
+                    contrasena: $('#contrasena').val()
+                };
+    
+                // Agregar campos adicionales según el tipo de usuario
+                if ($('#tipoUsuario').val() === 'academico') {
+                    formData.departamento = $('#departamento').val();
+                } else if ($('#tipoUsuario').val() === 'estudiante') {
+                    formData.carrera = $('#carrera').val();
+                } else if ($('#tipoUsuario').val() === 'polo') {
+                    formData.numTelefono = $('#numTelefono').val();
+                }
+    
+                // Enviar datos al servidor
+                $.ajax({
+                    url: '/registro',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function(response) {
+                        alert('Registro exitoso');
+                        window.location.href = '/login'; // Redirigir a la página de inicio de sesión
+                    },
+                    error: function(xhr) {
+                        $('#mensajeError').text(xhr.responseJSON.error).show();
+                    }
+                });
+            });
+    
+            $('#tipoUsuario').change(function() {
+                var tipo = $(this).val();
+                var camposAdicionales = $('#camposAdicionales');
+                camposAdicionales.empty();
+    
+                if (tipo === 'academico') {
+                    camposAdicionales.append('<div class="mb-3"><label for="departamento" class="form-label">Departamento</label><input type="text" class="form-control" id="departamento" required></div>');
+                } else if (tipo === 'estudiante') {
+                    camposAdicionales.append('<div class="mb-3"><label for="carrera" class="form-label">Carrera</label><input type="text" class="form-control" id="carrera" required></div>');
+                } else if (tipo === 'polo') {
+                    camposAdicionales.append('<div class="mb-3"><label for="numTelefono" class="form-label">Número de Teléfono</label><input type="tel" class="form-control" id="numTelefono" required></div>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
