@@ -52,4 +52,9 @@ public class PoloServiceImpl implements PoloService {
     public List<Estudiante> obtenerEstudiantes() {
         return repEstudiante.findAll();
     }
+
+    @Override
+    public boolean existePorCorreo(String correo) {
+        return repPolo.existsByCorreoPolo(correo);
+    }
 }

@@ -17,4 +17,6 @@ public interface AcademicoService {
     public Academico registrarAcademico(Academico academico);
 
     Academico buscarPorCorreo(String correo);
+
+    boolean existePorCorreo(String correo);
 }

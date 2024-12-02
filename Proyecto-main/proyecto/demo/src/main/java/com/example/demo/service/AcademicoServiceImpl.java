@@ -51,4 +51,9 @@ public class AcademicoServiceImpl implements AcademicoService{
     public Academico buscarPorCorreo(String correo) {
         return repAcademico.findByCorreoUbb(correo);
     }
+
+    @Override
+    public boolean existePorCorreo(String correo) {
+        return repAcademico.existsByCorreoUbb(correo);
+    }
 }

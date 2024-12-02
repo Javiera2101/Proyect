@@ -97,6 +97,9 @@
                     <div id="camposAdicionales"></div>
                     <button type="submit" class="btn btn-ubb-orange w-100">Registrar</button>
                 </form>
+
+                <div id="mensajeError" class="text-danger text-center" style="display: none;"></div>
+                <div id="mensajeExito" class="text-success text-center" style="display: none;"></div>
             </div>
         </div>
     </div>
@@ -136,7 +139,7 @@
                         window.location.href = '/login'; // Redirigir a la página de inicio de sesión
                     },
                     error: function(xhr) {
-                        alert('Error en el registro: ' + xhr.responseJSON.error);
+                        $('#mensajeError').text(xhr.responseJSON.error).show();
                     }
                 });
             });

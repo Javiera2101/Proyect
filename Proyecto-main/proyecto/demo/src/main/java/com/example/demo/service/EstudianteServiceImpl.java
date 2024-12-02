@@ -46,4 +46,9 @@ public class EstudianteServiceImpl implements EstudianteService{
     public Estudiante buscarPorCorreo(String correo) {
         return repEstudiante.findByCorreoEstudiante(correo);
     }
+
+    @Override
+    public boolean existePorCorreo(String correo) {
+        return repEstudiante.existsByCorreoEstudiante(correo);
+    }
 }
