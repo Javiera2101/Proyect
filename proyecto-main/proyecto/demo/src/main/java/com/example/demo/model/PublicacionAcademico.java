@@ -17,7 +17,7 @@ public class PublicacionAcademico {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "id_noticiaAcademico")
+    @Column(name = "id_noticia_academico")
     private int idNoticiaAcademico;
 
     @Column(name = "nom_noticia")

@@ -8,4 +8,5 @@ import com.example.demo.model.PublicacionAcademico;
 public interface PublicacionAcademicoService {
     PublicacionAcademico crearPublicacion(PublicacionAcademico publicacion, Academico academico);
     List<PublicacionAcademico> obtenerPublicacionesPorAcademico(Academico academico);
+    List<PublicacionAcademico> obtenerTodasLasPublicaciones();
 }

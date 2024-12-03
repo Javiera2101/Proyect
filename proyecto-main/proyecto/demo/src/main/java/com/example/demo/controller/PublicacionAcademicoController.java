@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,5 +63,13 @@ public class PublicacionAcademicoController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error al crear la publicación: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/publicaciones-academicas")
+    public String mostrarPublicacionesPublicas(Model model) {
+        // Obtener todas las publicaciones
+        List<PublicacionAcademico> publicaciones = publicacionService.obtenerTodasLasPublicaciones();
+        model.addAttribute("publicaciones", publicaciones);
+        return "publicaciones-academicas";
     }
 }

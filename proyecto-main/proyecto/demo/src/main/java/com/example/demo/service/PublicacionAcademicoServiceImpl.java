@@ -27,4 +27,9 @@ public class PublicacionAcademicoServiceImpl implements PublicacionAcademicoServ
             .filter(publicacion -> publicacion.getAcademico().equals(academico))
             .toList();
     }
+
+    @Override
+    public List<PublicacionAcademico> obtenerTodasLasPublicaciones() {
+        return publicacionRepository.findAll();
+    }
 }
