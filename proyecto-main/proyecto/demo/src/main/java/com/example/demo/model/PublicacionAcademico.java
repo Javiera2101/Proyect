@@ -36,6 +36,18 @@ public class PublicacionAcademico {
     @JoinColumn(name = "id_academico")
     private Academico academico;
 
+    @Column(name = "imagen_url_academico")
+    private String imagenUrlAcademico;
+
+    // Getter y setter
+    public String getImagenUrlAcademico() {
+        return imagenUrlAcademico;
+    }
+
+    public void setImagenUrlAcademico(String imagenUrlAcademico) {
+        this.imagenUrlAcademico = imagenUrlAcademico;
+    }
+
     public int getIdNoticiaAcademico() {
         return idNoticiaAcademico;
     }
