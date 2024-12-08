@@ -8,4 +8,5 @@ import com.example.demo.model.PublicacionPolo;
 public interface PublicacionPoloService {
     PublicacionPolo crearPublicacion(PublicacionPolo publicacion, Polo polo);
     List<PublicacionPolo> obtenerPublicacionesPorPolo(Polo polo);
+    List<PublicacionPolo> obtenerTodasLasPublicaciones();
 }

@@ -25,4 +25,9 @@ public class PublicacionPoloServiceImpl implements PublicacionPoloService {
     public List<PublicacionPolo> obtenerPublicacionesPorPolo(Polo polo) {
         return publicacionRepository.findByPolo(polo);
     }
+
+    @Override
+    public List<PublicacionPolo> obtenerTodasLasPublicaciones() {
+        return publicacionRepository.findAll();
+    }
 }
