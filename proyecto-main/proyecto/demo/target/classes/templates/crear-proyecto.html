@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Proyecto - POLO SALUD ÑUBLE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Crear Nuevo Proyecto</h2>
+        <form id="proyectoForm">
+            <div class="mb-3">
+                <label for="nombreProyecto" class="form-label">Nombre del Proyecto</label>
+                <input type="text" class="form-control" id="nombreProyecto" required>
+            </div>
+            <div class="mb-3">
+                <label for="tipoProyecto" class="form-label">Tipo de Proyecto</label>
+                <select class="form-control" id="tipoProyecto" required>
+                    <option value="Investigación">Investigación</option>
+                    <option value="Extensión">Extensión</option>
+                    <option value="Vinculación">Vinculación</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="estadoProyecto" class="form-label">Estado del Proyecto</label>
+                <select class="form-control" id="estadoProyecto" required>
+                    <option value="Planificación">Planificación</option>
+                    <option value ="Ejecución">Ejecución</option>
+                    <option value="Finalizado">Finalizado</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
+                <input type="date" class="form-control" id="fechaInicio" required>
+            </div>
+            <div class="mb-3">
+                <label for="fechaFin" class="form-label">Fecha de Fin</label>
+                <input type="date" class="form-control" id="fechaFin" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear Proyecto</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('proyectoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Crear un objeto FormData con los datos del formulario
+            const formData = new FormData();
+            formData.append('nombreProyecto', document.getElementById('nombreProyecto').value);
+            formData.append('tipoProyecto', document.getElementById('tipoProyecto').value);
+            formData.append('estadoProyecto', document.getElementById('estadoProyecto').value);
+            formData.append('fechaInicio', document.getElementById('fechaInicio').value);
+            formData.append('fechaFin', document.getElementById('fechaFin').value);
+    
+            fetch('/polo/proyectos/crear', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    // Si la respuesta no es exitosa, lanzar un error con el mensaje
+                    return response.text().then(errorText => {
+                        throw new Error(errorText);
+                    });
+                }
+                return response.text();
+            })
+            .then(data => {
+                alert(data);
+                if (data.includes("exitosamente")) {
+                    window.location.href = '/polo/proyectos/listar';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al crear el proyecto: ' + error.message);
+            });
+        });
+    </script>
+</body>
+</html>

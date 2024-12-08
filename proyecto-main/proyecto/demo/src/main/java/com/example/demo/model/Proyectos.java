@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,10 +27,10 @@ public class Proyectos {
     private String estadoProyecto;
 
     @Column(name = "fecha_inicio")
-    private String FechaInicioProyecto;
+    private LocalDateTime FechaInicioProyecto;
 
     @Column(name = "fecha_fin")
-    private String FechaFinProyecto;
+    private LocalDateTime FechaFinProyecto;
 
     @Column(name = "nombre")
     private String nombreProyecto;
@@ -61,19 +63,19 @@ public class Proyectos {
         this.estadoProyecto = estadoProyecto;
     }
 
-    public String getFechaInicioProyecto() {
+    public LocalDateTime getFechaInicioProyecto() {
         return FechaInicioProyecto;
     }
 
-    public void setFechaInicioProyecto(String fechaInicioProyecto) {
+    public void setFechaInicioProyecto(LocalDateTime fechaInicioProyecto) {
         FechaInicioProyecto = fechaInicioProyecto;
     }
 
-    public String getFechaFinProyecto() {
+    public LocalDateTime getFechaFinProyecto() {
         return FechaFinProyecto;
     }
 
-    public void setFechaFinProyecto(String fechaFinProyecto) {
+    public void setFechaFinProyecto(LocalDateTime fechaFinProyecto) {
         FechaFinProyecto = fechaFinProyecto;
     }
 
@@ -92,7 +94,5 @@ public class Proyectos {
     public void setPolo(Polo polo) {
         this.polo = polo;
     }
-
-    
     
 }
