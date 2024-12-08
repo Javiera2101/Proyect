@@ -16,7 +16,7 @@
         }
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
+            background-color: #f4f6f9;
         }
         .bg-ubb-blue { background-color: var(--ubb-blue); }
         .text-ubb-blue { color: var(--ubb-blue); }
@@ -31,12 +31,17 @@
         }
         .publicacion-card {
             transition: all 0.3s ease;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+            overflow: hidden;
         }
         .publicacion-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .navbar-brand img {
             transition: all 0.3s ease;
@@ -56,9 +61,24 @@
             white-space: pre-wrap;
         }
         .publicacion-imagen {
-            height: 200px;
+            height: 250px;
             object-fit: cover;
             width: 100%;
+            transition: transform 0.3s ease;
+        }
+        .publicacion-card:hover .publicacion-imagen {
+            transform: scale(1.05);
+        }
+        .filtro-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .badge {
+            font-weight: 500;
+            padding: 0.4em 0.6em;
         }
     </style>
 </head>
@@ -76,8 +96,6 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Publicaciones</a></li>
-                    <li class="nav-item">
-                    </li>
                 </ul>
             </div>
         </div>
@@ -86,23 +104,26 @@
     <div class="container my-5">
         <h2 class="text-center mb-4 text-ubb-blue">Publicaciones hechas por académicos</h2>
         
-        <div class="row mb-4">
-            <div class="col-md-3">
-                <input type="text" id="filtroCategoria" class="form-control" placeholder="Categoría">
+        <div class="filtro-container">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <input type="text" id="filtroCategoria" class="form-control" placeholder="Categoría">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" id="filtroTitulo" class="form-control" placeholder="Título">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" id="filtroAutor" class="form-control" placeholder="Autor">
+                </div>
+                <div class="col-md-3">
+                    <input type="date" id="filtroFecha" class="form-control" placeholder="Fecha">
+                </div>
             </div>
-            <div class="col-md-3">
-                <input type="text" id="filtroTitulo" class="form-control" placeholder="Título">
-            </div>
-            <div class="col-md-3">
-                <input type="text" id="filtroAutor" class="form-control" placeholder="Autor">
-            </div>
-            <div class="col-md-3">
-                <input type="date" id="filtroFecha" class="form-control" placeholder="Fecha">
-            </div>
-        </div>
-        <button class="btn btn-ubb-orange" type="button" onclick="filtrarPublicaciones()">
-            <i class="bi bi-filter"></i> Filtrar
-        </button>
+            <div class="row mt-3">
+                <div class="col">
+                    <button class="btn btn-ubb-orange w-100" type="button" onclick="filtrarPublicaciones()">
+                        <i class="bi bi-filter"></i> Filtrar Publicaciones
+                    </button>
                 </div>
             </div>
         </div>
@@ -112,7 +133,6 @@
                 <div class="col-md-4 publicacion-item" 
                      th:attr="data-categoria=${publicacion.categoriaNoticiaAcademico}">
                     <div class="card publicacion-card h-100">
-                        <!-- Mostrar imagen si existe, sino mostrar un espacio de color -->
                         <img th:if="${publicacion.imagenUrlAcademico != null}" 
                              th:src="${publicacion.imagenUrlAcademico}" 
                              class="card-img-top publicacion-imagen" 
@@ -137,7 +157,7 @@
                             </p>
                             <button class="btn btn-sm btn-ubb-orange mt-2" 
                                     data-bs-toggle="modal" 
-                                    th:attr="data-bs-target='#modalPublicacion' + ${publicacion.idNoticiaAcademico}">
+                                    th:attr="data-bs-target='#modalPublicacion' + ${publicacion .idNoticiaAcademico}">
                                 Ver más
                             </button>
                         </div>

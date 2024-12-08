@@ -76,9 +76,6 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Publicaciones</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-ubb-orange" th:href="@{/dashboard-polo}">Perfil</a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -109,8 +106,13 @@
                 <div class="col-md-4 publicacion-item" 
                      th:attr="data-categoria=${publicacion.categoriaNoticiaPolo}">
                     <div class="card publicacion-card h-100">
-                        <!-- Mostrar imagen por defecto si no hay imagen específica -->
-                        <div class="bg-light publicacion-imagen d-flex justify-content-center align-items-center">
+                        <!-- Mostrar imagen si existe, sino mostrar un espacio de color -->
+                        <img th:if="${publicacion.imagenUrlPolo != null}" 
+                             th:src="${publicacion.imagenUrlPolo}" 
+                             class="card-img-top publicacion-imagen" 
+                             alt="Imagen de la publicación">
+                        <div th:unless="${publicacion.imagenUrlPolo != null}" 
+                             class="bg-light publicacion-imagen d-flex justify-content-center align-items-center">
                              <img src="/images/logo-ubb.png" alt="UBB Logo" height="100">
                         </div>
                         
@@ -149,11 +151,16 @@
                      th:id="'modalPublicacion' + ${publicacion.idNoticiaPolo}" 
                      tabindex="-1">
                      <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
+                         <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" th:text="${publicacion.nomNoticiaPolo}">Título de la Publicación</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
                                 <div class="modal-body">
+                                    <img th:if="${publicacion.imagenUrlPolo != null}" 
+                                         th:src="${publicacion.imagenUrlPolo}" 
+                                         class="img-fluid mb-3" 
+                                         alt="Imagen de la publicación">
                                     <p th:text="${publicacion.descripcionNoticiaPolo}">Descripción completa de la publicación.</p>
                                 </div>
                                 <div class="modal-footer">
@@ -191,6 +198,7 @@
                 // Lógica de filtrado de fecha
                 const coincideFecha = filtroFecha === '' || 
                     (fechaPublicacion && 
+                    // Convertir la fecha de formato dd/MM/yyyy a yyyy-MM-dd para comparación
                     formatearFecha(fechaPublicacion) === filtroFecha);
 
                 if (coincideCategoria && coincideTitulo && coincideFecha) {
@@ -203,7 +211,10 @@
 
         // Función para convertir fecha de dd/MM/yyyy a yyyy-MM-dd
         function formatearFecha(fechaStr) {
+            // Dividir la fecha en día, mes y año
             const [dia, mes, ano] = fechaStr.split('/');
+            
+            // Formatear en yyyy-MM-dd para comparación
             return `${ano}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
         }
     </script>

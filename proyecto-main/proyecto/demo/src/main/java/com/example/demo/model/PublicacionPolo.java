@@ -36,6 +36,9 @@ public class PublicacionPolo {
     @JoinColumn(name = "id_polo")
     private Polo polo;
 
+    @Column(name = "imagen_url_polo")
+    private String imagenUrlPolo;
+
     public int getIdNoticiaPolo() {
         return idNoticiaPolo;
     }
@@ -82,6 +85,14 @@ public class PublicacionPolo {
 
     public void setPolo(Polo polo) {
         this.polo = polo;
+    }
+
+    public String getImagenUrlPolo() {
+        return imagenUrlPolo;
+    }
+
+    public void setImagenUrlPolo(String imagenUrlPolo) {
+        this.imagenUrlPolo = imagenUrlPolo;
     }
 
     
