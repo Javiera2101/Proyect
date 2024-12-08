@@ -77,6 +77,11 @@
             font-weight: 500;
             padding: 0.4em 0.6em;
         }
+        .fecha-inicio {
+            font-size: 0.9em;
+            color: var(--ubb-blue);
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
@@ -103,14 +108,17 @@
         
         <div class="filtro-container">
             <div class="row mb-4">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <input type="text" id="filtroTipo" class="form-control" placeholder="Tipo de Proyecto">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <input type="text" id="filtroNombre" class="form-control" placeholder="Nombre del Proyecto">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <input type="text" id="filtroEstado" class="form-control" placeholder="Estado del Proyecto">
+                </div>
+                <div class="col-md-3">
+                    <input type="date" id="filtroFechaInicio" class="form-control" placeholder="Fecha de Inicio">
                 </div>
                 <div class="col-md-3">
                     <button class="btn btn-ubb-orange w-100" type="button" onclick="filtrarProyectos()">
@@ -125,7 +133,8 @@
                 <div class="col-md-4 proyecto-item" 
                      th:attr="data-tipo=${proyecto.tipoProyecto}, 
                               data-nombre=${proyecto.nombreProyecto}, 
-                              data-estado=${proyecto.estadoProyecto}">
+                              data-estado=${proyecto.estadoProyecto},
+                              data-fecha=${#temporals.format(proyecto.fechaInicioProyecto, 'yyyy-MM-dd')}">
                     <div class="card proyecto-card h-100">
                         <img th:if="${proyecto.imagenUrlProyecto != null}" 
                              th:src="${proyecto.imagenUrlProyecto}" 
@@ -149,15 +158,25 @@
                                 th:text="${proyecto.nombreProyecto}">
                                 Nombre del Proyecto
                             </h5>
-                            <p class="card-text text-muted card-text-preview" 
-                               th:text="${proyecto.descripcionProyecto}">
+                            <p class="card-text text-muted card-text-preview"  th:text="${proyecto.descripcionProyecto}">
                                 Descripción del proyecto
                             </p>
-                            <button class="btn btn-sm btn-ubb-orange mt-2" 
-                                    data-bs-toggle="modal" 
-                                    th:attr="data-bs-target='#modalProyecto' + ${proyecto.idProyecto}">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button class="btn btn-sm btn-ubb-orange mt-2" 
+                                        data-bs-toggle="modal" 
+                                        th:attr="data-bs-target='#modalProyecto' + ${proyecto.idProyecto}">
                                 Ver más
-                            </button>
+                                </button>
+                                <div>
+                                    <small class="fecha-inicio d-block text-end">
+                                        <i class="bi bi-calendar-check me-1"></i>
+                                        Fecha de Inicio: 
+                                        <span th:text="${#temporals.format(proyecto.fechaInicioProyecto, 'dd/MM/yyyy')}">
+                                            Fecha
+                                        </span>
+                                    </small>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -174,12 +193,7 @@
                                      th:src="${proyecto.imagenUrlProyecto}" 
                                      class="img-fluid mb-3" 
                                      alt="Imagen del Proyecto">
-                                <h6>Descripción:</h6>
                                 <p th:text="${proyecto.descripcionProyecto}">Descripción detallada del proyecto.</p>
-                                <h6>Tipo de Proyecto:</h6>
-                                <p th:text="${proyecto.tipoProyecto}">Tipo de Proyecto</p>
-                                <h6>Estado del Proyecto:</h6>
-                                <p th:text="${proyecto.estadoProyecto}">Estado del Proyecto</p>
                             </div>
                         </div>
                     </div>
@@ -194,18 +208,21 @@
             const tipo = document.getElementById('filtroTipo').value.toLowerCase().trim();
             const nombre = document.getElementById('filtroNombre').value.toLowerCase().trim();
             const estado = document.getElementById('filtroEstado').value.toLowerCase().trim();
+            const fechaInicio = document.getElementById('filtroFechaInicio').value;
             const proyectos = document.querySelectorAll('.proyecto-item');
 
             proyectos.forEach(proyecto => {
                 const tipoProyecto = proyecto.getAttribute('data-tipo').toLowerCase();
                 const nombreProyecto = proyecto.getAttribute('data-nombre').toLowerCase();
                 const estadoProyecto = proyecto.getAttribute('data-estado').toLowerCase();
+                const fechaProyecto = proyecto.getAttribute('data-fecha');
 
                 const coincideTipo = tipo === '' || tipoProyecto.includes(tipo);
                 const coincideNombre = nombre === '' || nombreProyecto.includes(nombre);
                 const coincideEstado = estado === '' || estadoProyecto.includes(estado);
+                const coincideFecha = fechaInicio === '' || fechaProyecto === fechaInicio;
 
-                if (coincideTipo && coincideNombre && coincideEstado) {
+                if (coincideTipo && coincideNombre && coincideEstado && coincideFecha) {
                     proyecto.style.display = '';
                 } else {
                     proyecto.style.display = 'none';
