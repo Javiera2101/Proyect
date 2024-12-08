@@ -2,80 +2,230 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Proyecto - POLO SALUD ÑUBLE</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ubb-blue: #003C71;
+            --ubb-orange: #FF6B35;
+            --ubb-green: #4CAF50;
+            --ubb-yellow: #FFD100;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar-brand img {
+            transition: all 0.3s ease;
+        }
+        .navbar-brand img:hover {
+            transform: scale(1.1);
+        }
+        .bg-ubb-blue { background-color: var(--ubb-blue); }
+        .text-ubb-blue { color: var(--ubb-blue); }
+        .btn-ubb-orange {
+            background-color: var(--ubb-orange);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-ubb-orange:hover {
+            background-color: #e55a2b;
+            transform: translateY(-2px);
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-top: 50px;
+        }
+        .form-control:focus {
+            border-color: var(--ubb-blue);
+            box-shadow: 0 0 0 0.2rem rgba(0,60,113,0.25);
+        }
+        #mensaje {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .text-success {
+            background-color: rgba(var(--ubb-green), 0.1);
+            color: var(--ubb-green);
+        }
+        .text-danger {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: red;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h2>Crear Nuevo Proyecto</h2>
-        <form id="proyectoForm">
-            <div class="mb-3">
-                <label for="nombreProyecto" class="form-label">Nombre del Proyecto</label>
-                <input type="text" class="form-control" id="nombreProyecto" required>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg bg-ubb-blue navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/images/logo-ubb.png" alt="UBB Logo" height="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Mis Proyectos</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-ubb-orange" th:text=Perfil 
+                           th:href="@{/dashboard-polo}"></a>
+                    </li>
+                </ul>
             </div>
-            <div class="mb-3">
-                <label for="tipoProyecto" class="form-label">Tipo de Proyecto</label>
-                <select class="form-control" id="tipoProyecto" required>
-                    <option value="Investigación">Investigación</option>
-                    <option value="Extensión">Extensión</option>
-                    <option value="Vinculación">Vinculación</option>
-                </select>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 form-container">
+                <h2 class="text-center mb-4 text-ubb-blue">Crear Nuevo Proyecto</h2>
+                <div id="mensaje" class="d-none"></div>
+                <form id="proyectoForm">
+                    <div class="mb-3">
+                        <label for="nombreProyecto" class="form-label">Nombre del Proyecto</label>
+                        <input type="text" class="form-control" id="nombreProyecto" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipoProyecto" class="form-label">Tipo de Proyecto</label>
+                        <select class="form-control" id="tipoProyecto" required>
+                            <option value="">Seleccione un tipo</option>
+                            <option value="Investigación">Investigación</option>
+                            <option value="Extensión">Extensión</option>
+                            <option value="Vinculación">Vinculación</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="estadoProyecto" class="form-label">Estado del Proyecto</label>
+                        <select class="form-control" id="estadoProyecto" required>
+                            <option value="">Seleccione un estado</option>
+                            <option value="Planificación">Planificación</option>
+                            <option value="Ejecución">Ejecución</option>
+                            <option value="Finalizado">Finalizado</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
+                        <input type="date" class="form-control" id="fechaInicio" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaFin" class="form-label">Fecha de Fin</label>
+                        <input type="date" class="form-control" id="fechaFin" required>
+                    </div>
+                    <button type="submit" class="btn btn-ubb-orange w-100">Crear Proyecto</button>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="estadoProyecto" class="form-label">Estado del Proyecto</label>
-                <select class="form-control" id="estadoProyecto" required>
-                    <option value="Planificación">Planificación</option>
-                    <option value ="Ejecución">Ejecución</option>
-                    <option value="Finalizado">Finalizado</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
-                <input type="date" class="form-control" id="fechaInicio" required>
-            </div>
-            <div class="mb-3">
-                <label for="fechaFin" class="form-label">Fecha de Fin</label>
-                <input type="date" class="form-control" id="fechaFin" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Crear Proyecto</button>
-        </form>
+        </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        document.getElementById('proyectoForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            // Crear un objeto FormData con los datos del formulario
-            const formData = new FormData();
-            formData.append('nombreProyecto', document.getElementById('nombreProyecto').value);
-            formData.append('tipoProyecto', document.getElementById('tipoProyecto').value);
-            formData.append('estadoProyecto', document.getElementById('estadoProyecto').value);
-            formData.append('fechaInicio', document.getElementById('fechaInicio').value);
-            formData.append('fechaFin', document.getElementById('fechaFin').value);
-    
-            fetch('/polo/proyectos/crear', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    // Si la respuesta no es exitosa, lanzar un error con el mensaje
-                    return response.text().then(errorText => {
-                        throw new Error(errorText);
-                    });
+        $(document).ready(function() {
+            $('#proyectoForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Validaciones del lado del cliente
+                var nombreProyecto = $('#nombreProyecto').val().trim();
+                var tipoProyecto = $('#tipoProyecto').val();
+                var estadoProyecto = $('#estadoProyecto').val();
+                var fechaInicio = $('#fechaInicio').val();
+                var fechaFin = $('#fechaFin').val();
+
+                // Validaciones
+                if (!nombreProyecto) {
+                    mostrarMensajeError('Por favor, ingrese un nombre para el proyecto');
+                    return;
                 }
-                return response.text();
-            })
-            .then(data => {
-                alert(data);
-                if (data.includes("exitosamente")) {
-                    window.location.href = '/polo/proyectos/listar';
+
+                if (!tipoProyecto) {
+                    mostrarMensajeError('Por favor, seleccione un tipo de proyecto');
+                    return;
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error al crear el proyecto: ' + error.message);
+
+                if (!estadoProyecto) {
+                    mostrarMensajeError('Por favor, seleccione un estado de proyecto');
+                    return;
+                }
+
+                if (!fechaInicio) {
+                    mostrarMensajeError('Por favor, seleccione una fecha de inicio');
+                    return;
+                }
+
+                if (!fechaFin) {
+                    mostrarMensajeError('Por favor, seleccione una fecha de fin');
+                    return;
+                }
+
+                // Crear FormData manualmente para mayor control
+                var formData = new FormData();
+                formData.append('nombreProyecto', nombreProyecto);
+                formData.append('tipoProyecto', tipoProyecto);
+                formData.append('estadoProyecto', estadoProyecto);
+                formData.append('fechaInicio', fechaInicio);
+                formData.append('fechaFin', fechaFin);
+
+                $.ajax({
+                    url: '/polo/proyectos/crear',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        mostrarMensajeExito(response);
+                        $('#proyectoForm')[0].reset();
+                    },
+                    error: function(xhr) {
+                        // Manejo más detallado del error
+                        var errorMessage = xhr.responseText;
+                        try {
+                            // Intentar parsear el error si es un JSON
+                            var errorObj = JSON.parse(errorMessage);
+                            errorMessage = errorObj.message || errorMessage;
+                        } catch(e) {
+                            // Si no es un JSON, usar el texto original
+                        }
+                        mostrarMensajeError('Error al crear el proyecto: ' + errorMessage);
+                    }
+                });
             });
+
+            // Funciones para mostrar mensajes
+            function mostrarMensajeExito(mensaje) {
+                $('#mensaje')
+                    .text(mensaje)
+                    .removeClass('text-danger d-none')
+                    .addClass('text-success');
+            }
+
+            function mostrarMensajeError(mensaje) {
+                $('#mensaje')
+                    .text(mensaje)
+                    .removeClass('text-success d-none')
+                    .addClass('text-danger');
+            }
+
+            // Verificar sesión
+            function verificarSesion() {
+                $.ajax({
+                    url: '/polo/verificar-sesion',
+                    type: 'GET',
+                    success: function(data) {
+                        if (!data.sesionActiva) {
+                            window.location.href = '/login';
+                        }
+                    },
+                });
+            }
+            verificarSesion();
         });
     </script>
 </body>

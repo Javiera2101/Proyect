@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,7 @@ public class ProyectosController {
 
     @PostMapping("/crear")
     @ResponseBody
+    @SuppressWarnings("CallToPrintStackTrace")
     public ResponseEntity<?> crearProyecto(
         @RequestParam("nombreProyecto") String nombreProyecto,
         @RequestParam("tipoProyecto") String tipoProyecto,
@@ -50,6 +52,14 @@ public class ProyectosController {
         @RequestParam("fechaFin") String fechaFin,
         HttpSession session
     ) {
+        // Agregar más logging o validaciones
+        System.out.println("Creando proyecto con los siguientes datos:");
+        System.out.println("Nombre: " + nombreProyecto);
+        System.out.println("Tipo: " + tipoProyecto);
+        System.out.println("Estado: " + estadoProyecto);
+        System.out.println("Fecha Inicio: " + fechaInicio);
+        System.out.println("Fecha Fin: " + fechaFin);
+
         String correoUsuario = (String) session.getAttribute("correoUsuario");
 
         if (correoUsuario == null) {
@@ -58,20 +68,37 @@ public class ProyectosController {
 
         try {
             Polo polo = poloService.buscarPorCorreo(correoUsuario);
+            
+            // Validaciones adicionales
+            if (polo == null) {
+                return ResponseEntity.badRequest().body("Polo no encontrado");
+            }
+
             Proyectos proyecto = new Proyectos();
             proyecto.setNombreProyecto(nombreProyecto);
             proyecto.setTipoProyecto(tipoProyecto);
             proyecto.setEstadoProyecto(estadoProyecto);
             
-            // Cambio en el parseo de fechas
+            // Cambio en el parseo de fechas con manejo de errores
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            proyecto.setFechaInicioProyecto(LocalDate.parse(fechaInicio, formatter).atStartOfDay());
-            proyecto.setFechaFinProyecto(LocalDate.parse(fechaFin, formatter).atStartOfDay());
+            try {
+                proyecto.setFechaInicioProyecto(LocalDate.parse(fechaInicio, formatter).atStartOfDay());
+                proyecto.setFechaFinProyecto(LocalDate.parse(fechaFin, formatter).atStartOfDay());
+            } catch (DateTimeParseException e) {
+                return ResponseEntity.badRequest().body("Formato de fecha inválido");
+            }
+
+            // Validación de fechas
+            if (proyecto.getFechaFinProyecto().isBefore(proyecto.getFechaInicioProyecto())) {
+                return ResponseEntity.badRequest().body("La fecha de fin no puede ser anterior a la fecha de inicio");
+            }
 
             proyectosService.crearProyecto(proyecto, polo);
 
             return ResponseEntity.ok("Proyecto creado exitosamente");
         } catch (Exception e) {
+            // Loguear el error completo
+            e.printStackTrace();
             return ResponseEntity.badRequest().body("Error al crear el proyecto: " + e.getMessage());
         }
     }
