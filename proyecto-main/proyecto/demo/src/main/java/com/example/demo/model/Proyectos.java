@@ -35,6 +35,12 @@ public class Proyectos {
     @Column(name = "nombre")
     private String nombreProyecto;
 
+    @Column(name = "Descripcion_proyecto")
+    private String descripcionProyecto;
+
+    @Column(name = "imagen_url_proyecto")
+    private String imagenUrlProyecto;
+
     @ManyToOne
     @JoinColumn(name = "id_polo")
     private Polo polo;
@@ -87,6 +93,22 @@ public class Proyectos {
         this.nombreProyecto = nombreProyecto;
     }
 
+    public String getDescripcionProyecto() {
+        return descripcionProyecto;
+    }
+
+    public void setDescripcionProyecto(String descripcionProyecto) {
+        this.descripcionProyecto = descripcionProyecto;
+    }
+
+    public String getImagenUrlProyecto() {
+        return imagenUrlProyecto;
+    }
+
+    public void setImagenUrlProyecto(String imagenUrlProyecto) {
+        this.imagenUrlProyecto = imagenUrlProyecto;
+    }
+
     public Polo getPolo() {
         return polo;
     }
@@ -94,5 +116,6 @@ public class Proyectos {
     public void setPolo(Polo polo) {
         this.polo = polo;
     }
+
     
 }

@@ -6,6 +6,7 @@
     <title>Crear Proyecto - POLO SALUD ÑUBLE</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <style>
         :root {
             --ubb-blue: #003C71;
@@ -58,6 +59,11 @@
             background-color: rgba(255, 0, 0, 0.1);
             color: red;
         }
+        #imagenPreview {
+            max-width: 300px;
+            margin-top: 15px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -88,10 +94,14 @@
             <div class="col-md-8 form-container">
                 <h2 class="text-center mb-4 text-ubb-blue">Crear Nuevo Proyecto</h2>
                 <div id="mensaje" class="d-none"></div>
-                <form id="proyectoForm">
+                <form id="proyectoForm" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="nombreProyecto" class="form-label">Nombre del Proyecto</label>
                         <input type="text" class="form-control" id="nombreProyecto" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcionProyecto" class="form-label">Descripción del Proyecto</label>
+                        <textarea class="form-control" id="descripcionProyecto" rows="4" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="tipoProyecto" class="form-label">Tipo de Proyecto</label>
@@ -119,6 +129,11 @@
                         <label for="fechaFin" class="form-label">Fecha de Fin</label>
                         <input type="date" class="form-control" id="fechaFin" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="imagen" class="form-label">Imagen del Proyecto (opcional)</label>
+                        <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+                        <img id="imagenPreview" src="#" alt="Vista previa de la imagen" class="d-none">
+                    </div>
                     <button type="submit" class="btn btn-ubb-orange w-100">Crear Proyecto</button>
                 </form>
             </div>
@@ -129,11 +144,20 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+            // Vista previa de imagen
+            $('#imagen').on('change', function() {
+                var reader = new FileReader();
+                reader.onload = function(e) { $('#imagenPreview').attr('src', e.target.result).removeClass('d-none');
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+
             $('#proyectoForm').on('submit', function(e) {
                 e.preventDefault();
                 
-                // Validaciones del lado del cliente
+                // Validaciones previas
                 var nombreProyecto = $('#nombreProyecto').val().trim();
+                var descripcionProyecto = $('#descripcionProyecto').val().trim();
                 var tipoProyecto = $('#tipoProyecto').val();
                 var estadoProyecto = $('#estadoProyecto').val();
                 var fechaInicio = $('#fechaInicio').val();
@@ -145,33 +169,25 @@
                     return;
                 }
 
-                if (!tipoProyecto) {
-                    mostrarMensajeError('Por favor, seleccione un tipo de proyecto');
+                if (!descripcionProyecto) {
+                    mostrarMensajeError('Por favor, ingrese una descripción para el proyecto');
                     return;
                 }
 
-                if (!estadoProyecto) {
-                    mostrarMensajeError('Por favor, seleccione un estado de proyecto');
-                    return;
-                }
-
-                if (!fechaInicio) {
-                    mostrarMensajeError('Por favor, seleccione una fecha de inicio');
-                    return;
-                }
-
-                if (!fechaFin) {
-                    mostrarMensajeError('Por favor, seleccione una fecha de fin');
-                    return;
-                }
-
-                // Crear FormData manualmente para mayor control
+                // Crear FormData para manejar archivos
                 var formData = new FormData();
                 formData.append('nombreProyecto', nombreProyecto);
+                formData.append('descripcionProyecto', descripcionProyecto);
                 formData.append('tipoProyecto', tipoProyecto);
                 formData.append('estadoProyecto', estadoProyecto);
                 formData.append('fechaInicio', fechaInicio);
                 formData.append('fechaFin', fechaFin);
+
+                // Agregar imagen si existe
+                var imagenInput = $('#imagen')[0];
+                if (imagenInput.files.length > 0) {
+                    formData.append('imagen', imagenInput.files[0]);
+                }
 
                 $.ajax({
                     url: '/polo/proyectos/crear',
@@ -182,23 +198,16 @@
                     success: function(response) {
                         mostrarMensajeExito(response);
                         $('#proyectoForm')[0].reset();
+                        $('#imagenPreview').addClass('d-none');
                     },
                     error: function(xhr) {
-                        // Manejo más detallado del error
                         var errorMessage = xhr.responseText;
-                        try {
-                            // Intentar parsear el error si es un JSON
-                            var errorObj = JSON.parse(errorMessage);
-                            errorMessage = errorObj.message || errorMessage;
-                        } catch(e) {
-                            // Si no es un JSON, usar el texto original
-                        }
                         mostrarMensajeError('Error al crear el proyecto: ' + errorMessage);
                     }
                 });
             });
 
-            // Funciones para mostrar mensajes
+            // Funciones de mensajes
             function mostrarMensajeExito(mensaje) {
                 $('#mensaje')
                     .text(mensaje)
@@ -212,20 +221,6 @@
                     .removeClass('text-success d-none')
                     .addClass('text-danger');
             }
-
-            // Verificar sesión
-            function verificarSesion() {
-                $.ajax({
-                    url: '/polo/verificar-sesion',
-                    type: 'GET',
-                    success: function(data) {
-                        if (!data.sesionActiva) {
-                            window.location.href = '/login';
-                        }
-                    },
-                });
-            }
-            verificarSesion();
         });
     </script>
 </body>
