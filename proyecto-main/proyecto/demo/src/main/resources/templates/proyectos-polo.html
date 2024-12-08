@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos Polo - POLO SALUD ÑUBLE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --ubb-blue: #003C71;
+            --ubb-orange: #FF6B35;
+            --ubb-green: #4CAF50;
+            --ubb-yellow: #FFD100;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .bg-ubb-blue { background-color: var(--ubb-blue); }
+        .text-ubb-blue { color: var(--ubb-blue); }
+        .btn-ubb-orange {
+            background-color: var(--ubb-orange);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-ubb-orange:hover {
+            background-color: #e55a2b;
+            transform: translateY(-2px);
+        }
+        .proyecto-card {
+            transition: all 0.3s ease;
+            border-radius: 10px;
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .proyecto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .navbar-brand img {
+            transition: all 0.3s ease;
+        }
+        .navbar-brand img:hover {
+            transform: scale(1.1);
+        }
+        .card-text-preview {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 4.5em;
+        }
+        .modal-body {
+            white-space: pre-wrap;
+        }
+        .proyecto-imagen {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+        .proyecto-card:hover .proyecto-imagen {
+            transform: scale(1.05);
+        }
+        .filtro-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .badge {
+            font-weight: 500;
+            padding: 0.4em 0.6em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg bg-ubb-blue navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/images/logo-ubb.png" alt="UBB Logo" height="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Proyectos</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <h2 class="text-center mb-4 text-ubb-blue">Proyectos del Polo de Salud Ñuble</h2>
+        
+        <div class="filtro-container">
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <input type="text" id="filtroTipo" class="form-control" placeholder="Tipo de Proyecto">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" id="filtroNombre" class="form-control" placeholder="Nombre del Proyecto">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" id="filtroEstado" class="form-control" placeholder="Estado del Proyecto">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-ubb-orange w-100" type="button" onclick="filtrarProyectos()">
+                        <i class="bi bi-filter"></i> Filtrar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4" id="contenedorProyectos">
+            <th:block th:each="proyecto : ${proyectos}">
+                <div class="col-md-4 proyecto-item" 
+                     th:attr="data-tipo=${proyecto.tipoProyecto}, data-estado=${proyecto.estadoProyecto}">
+                    <div class="card proyecto-card h-100">
+                        <img th:if="${proyecto.imagenUrlProyecto != null}" 
+                             th:src="${proyecto.imagenUrlProyecto}" 
+                             class="card-img-top proyecto-imagen" 
+                             alt="Imagen del Proyecto">
+                        <div th:unless="${proyecto.imagenUrlProyecto != null}" 
+                             class="bg-light proyecto-imagen d-flex justify-content-center align-items-center">
+                             <img src="/images/logo-ubb.png" alt="UBB Logo" height="100">
+                        </div>
+                        
+                        <div class="card-body">
+                            <span class="badge bg-ubb-blue mb-2" 
+                                  th:text="${proyecto.tipoProyecto}">
+                                Tipo de Proyecto
+                            </span>
+                            <span class="badge bg-ubb-green ms-2" 
+                                  th:text="${proyecto.estadoProyecto}">
+                                Estado del Proyecto
+                            </span>
+                            <h5 class="card-title text-ubb-blue mt-2" 
+                                th:text="${proyecto.nombreProyecto}">
+                                Nombre del Proyecto
+                            </h5>
+                            <p class="card-text text-muted card-text-preview" 
+                               th:text="${proyecto.descripcionProyecto}">
+                                Descripción del proyecto
+                            </p>
+                            <button class="btn btn-sm btn-ubb-orange mt-2" 
+                                    data-bs-toggle="modal" 
+                                    th:attr="data-bs-target='#modalProyecto' + ${proyecto.idProyecto}">
+                                Ver más
+                            </button>
+                        </div>
+                 </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" th:id="'modalProyecto' + ${proyecto.idProyecto}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" th:text="${proyecto.nombreProyecto}">Título del Proyecto</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <img th:if="${proyecto.imagenUrlProyecto != null}" 
+                                     th:src="${proyecto.imagenUrlProyecto}" 
+                                     class="img-fluid" 
+                                     alt="Imagen del Proyecto">
+                                <h6 class="mt-3">Descripción:</h6>
+                                <p th:text="${proyecto.descripcionProyecto}">Descripción detallada del proyecto.</p>
+                                <h6>Tipo de Proyecto:</h6>
+                                <p th:text="${proyecto.tipoProyecto}">Tipo de Proyecto</p>
+                                <h6>Estado del Proyecto:</h6>
+                                <p th:text="${proyecto.estadoProyecto}">Estado del Proyecto</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function filtrarProyectos() {
+            const tipo = document.getElementById('filtroTipo').value.toLowerCase();
+            const nombre = document.getElementById('filtroNombre').value.toLowerCase();
+            const estado = document.getElementById('filtroEstado').value.toLowerCase();
+            const proyectos = document.querySelectorAll('.proyecto-item');
+
+            proyectos.forEach(proyecto => {
+                const tipoProyecto = proyecto.getAttribute('data-tipo').toLowerCase();
+                const nombreProyecto = proyecto.querySelector('.card-title').textContent.toLowerCase();
+                const estadoProyecto = proyecto.getAttribute('data-estado').toLowerCase();
+
+                if (tipoProyecto.includes(tipo) && nombreProyecto.includes(nombre) && estadoProyecto.includes(estado)) {
+                    proyecto.style.display = '';
+                } else {
+                    proyecto.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
