@@ -162,17 +162,17 @@
     <script>
         function filtrarSugerencias() {
             const nombre = document.getElementById('filtroNombre').value.toLowerCase();
-            const estado = document.getElementById('filtroEstado').value;
+            const estado = document.getElementById('filtroEstado').value.toUpperCase(); // Convertir a mayúsculas
             const fecha = document.getElementById('filtroFecha').value;
 
             const sugerencias = document.querySelectorAll('.sugerencia-card');
             sugerencias.forEach(sugerencia => {
                 const nombreSugerencia = sugerencia.getAttribute('data-nombre').toLowerCase();
-                const estadoSugerencia = sugerencia.getAttribute('data-estado');
+                const estadoSugerencia = sugerencia.querySelector('.badge').textContent.toUpperCase(); // Obtener estado del badge
                 const fechaSugerencia = sugerencia.getAttribute('data-fecha');
 
                 const nombreMatch = nombreSugerencia.includes(nombre);
-                const estadoMatch = estado ? estadoSugerencia === estado : true;
+                const estadoMatch = estado === '' || estadoSugerencia === estado;
                 const fechaMatch = fecha ? fechaSugerencia === fecha : true;
 
                 if (nombreMatch && estadoMatch && fechaMatch) {
