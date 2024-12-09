@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.model.Academico;
 import com.example.demo.model.Estudiante;
 import com.example.demo.model.Polo;
+import com.example.demo.model.Proyectos;
 import com.example.demo.service.PoloService;
+import com.example.demo.service.ProyectosService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -25,6 +27,9 @@ public class PoloController {
     
     @Autowired
     PoloService poloService;
+
+    @Autowired
+    ProyectosService proyectosService;
 
     @GetMapping("")
     public List<Polo> list() {
@@ -72,5 +77,21 @@ public class PoloController {
         model.addAttribute("estudiantes", estudiantes);
 
         return "identificar-estudiantes"; // Vista que mostraría la lista
+    }
+
+    @GetMapping("/identificar-proyectos")
+    public String identificarProyectos(Model model, HttpSession session) {
+        String correoUsuario = (String) session.getAttribute("correoUsuario");
+        Polo polo = poloService.buscarPorCorreo(correoUsuario);
+
+        if (polo == null) {
+            return "redirect:/login"; // Redirigir si no está autenticado
+        }
+
+        List<Proyectos> proyectos = proyectosService.obtenerTodosLosProyectos();
+
+        model.addAttribute("proyectos", proyectos);
+
+        return "identificar-proyectos"; // Nueva vista que crearemos
     }
 }
