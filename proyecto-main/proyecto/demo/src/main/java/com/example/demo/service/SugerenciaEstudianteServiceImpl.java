@@ -25,4 +25,18 @@ public class SugerenciaEstudianteServiceImpl implements SugerenciaEstudianteServ
     public List<SugerenciaEstudiante> obtenerSugerenciasPorEstudiante(Estudiante estudiante) {
         return sugerenciaRepository.findByEstudiante(estudiante);
     }
+
+    @Override
+    public List<SugerenciaEstudiante> obtenerTodasSugerencias() {
+        return sugerenciaRepository.findAll();
+    }
+
+    @Override
+    public SugerenciaEstudiante actualizarEstadoSugerencia(int idSugerencia, String nuevoEstado) {
+        SugerenciaEstudiante sugerencia = sugerenciaRepository.findById(idSugerencia)
+            .orElseThrow(() -> new RuntimeException("Sugerencia no encontrada"));
+        
+        sugerencia.setEstadoSugerenciaEstudiante(nuevoEstado);
+        return sugerenciaRepository.save(sugerencia);
+    }
 }

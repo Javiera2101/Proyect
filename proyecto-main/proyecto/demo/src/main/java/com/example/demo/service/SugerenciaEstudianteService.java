@@ -8,4 +8,8 @@ import com.example.demo.model.SugerenciaEstudiante;
 public interface SugerenciaEstudianteService {
     SugerenciaEstudiante crearSugerencia(SugerenciaEstudiante sugerencia, Estudiante estudiante);
     List<SugerenciaEstudiante> obtenerSugerenciasPorEstudiante(Estudiante estudiante);
+
+    public List<SugerenciaEstudiante> obtenerTodasSugerencias();
+
+    public SugerenciaEstudiante actualizarEstadoSugerencia(int idSugerencia, String nuevoEstado);
 }
