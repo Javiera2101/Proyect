@@ -17,7 +17,7 @@ public class SugerenciaAcademico {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_sugerenciaAcademico")
+    @Column(name = "id_sugerencia_academico")
     private int idSugerenciaAcademico;
 
     @Column(name = "estado")

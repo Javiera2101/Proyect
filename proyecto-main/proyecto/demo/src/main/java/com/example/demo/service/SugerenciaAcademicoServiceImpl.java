@@ -23,8 +23,6 @@ public class SugerenciaAcademicoServiceImpl implements SugerenciaAcademicoServic
 
     @Override
     public List<SugerenciaAcademico> obtenerSugerenciasPorAcademico(Academico academico) {
-        return sugerenciaRepository.findAll().stream()
-            .filter(sugerencia -> sugerencia.getAcademico().equals(academico))
-            .toList();
+        return sugerenciaRepository.findByAcademico(academico);
     }
 }

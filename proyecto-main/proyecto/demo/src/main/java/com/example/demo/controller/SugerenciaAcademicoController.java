@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,5 +63,31 @@ public class SugerenciaAcademicoController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error al crear la sugerencia: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/mis-sugerencias")
+    public String mostrarMisSugerencias(HttpSession session, Model model) {
+        String tipoUsuario = (String) session.getAttribute("tipoUsuario");
+        String correoUsuario = (String) session.getAttribute("correoUsuario");
+        
+        // Verificar si el usuario está logueado y es académico
+        if (tipoUsuario == null || !tipoUsuario.equals("academico")) {
+            return "redirect:/login";
+        }
+
+        // Buscar al académico por correo
+        Academico academico = academicoService.buscarPorCorreo(correoUsuario);
+        
+        if (academico == null) {
+            return "redirect:/login";
+        }
+
+        // Obtener las sugerencias del académico
+        List<SugerenciaAcademico> sugerenciasAcademico = sugerenciaService.obtenerSugerenciasPorAcademico(academico);
+        
+        // Agregar las sugerencias al modelo
+        model.addAttribute("sugerenciasAcademico", sugerenciasAcademico);
+        
+        return "mis-sugerencias-academico";
     }
 }
