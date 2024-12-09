@@ -98,18 +98,16 @@
             <div class="col-md-6 col-lg-4">
                 <div class="dashboard-card">
                     <i class="bi bi-file-earmark-text feature-icon mb-3"></i>
-                    <h5>Publicaciones Recientes</h5>
-                    <p>Total: <span th:text="${cantidadPublicaciones}">0</span></p>
-                    <button class="btn btn-ubb-orange">Ver Publicaciones</button>
+                    <h5>Publicaciones</h5>
+                    <a href="/polo/publicaciones/crear" class="btn btn-ubb-orange">Crear publicaciones</a>
                 </div>
             </div>
             
             <div class="col-md-6 col-lg-4">
                 <div class="dashboard-card">
                     <i class="bi bi-diagram-3 feature-icon mb-3"></i>
-                    <h5>Ejes Programáticos Activos</h5>
-                    <p>Total: <span th:text="${cantidadEjes}">0</span></p>
-                    <button class="btn btn-ubb-orange">Ver Ejes</button>
+                    <h5>Proyectos</h5>
+                    <a href="/polo/proyectos/crear" class="btn btn-ubb-orange">Crear proyectos</a>
                 </div>
             </div>
 
@@ -117,7 +115,6 @@
                 <div class="dashboard-card">
                     <i class="bi bi-people feature-icon mb-3"></i>
                     <h5>Usuarios Registrados</h5>
-                    <p>Total: <span></span></p>
                     <a href="/polo/identificar-estudiantes" class="btn btn-ubb-orange">Ver Estudiantes</a>
                     &nbsp
                     <a href="/polo/identificar-academicos" class="btn btn-ubb-orange">Ver academicos</a>
