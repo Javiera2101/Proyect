@@ -59,10 +59,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/dashboard-academico">Dashboard</a></li>
-                    <li class="nav-item">
-                        <button id="btnCerrarSesion" class="btn btn-logout">Cerrar Sesión</button>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/publicaciones">Publicaciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/polo/proyectos/proyectos-polo">Proyectos</a></li>
                 </ul>
             </div>
         </div>
@@ -147,8 +145,8 @@
                             </div>
                             <div class="modal-body">
                                 <p th:text="${sugerencia.descripcionSugerenciaEstudiante}">Descripción completa de la sugerencia.</p>
-                                <p><strong>Estado:</strong> <span th:text="${sugerencia.estadoSugerenciaEstudiante}">Estado</span></p>
-                                <p><strong>Fecha de creación:</strong> <span th:text="${#temporals.format(sugerencia.fechaCreacionSugerenciaEstudiante, 'dd/MM/yyyy')}">Fecha</span></p>
+                                <p><strong>Estado:</strong> <span th:text="${sugerencia.estadoSugerenciaEstudiante}"></span></p>
+                                <p><strong>Fecha de creación:</strong> <span th:text="${#temporals.format(sugerencia.fechaCreacionSugerenciaEstudiante, 'dd/MM/yyyy')}"></span></p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -160,6 +158,7 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function filtrarSugerencias() {
             const nombre = document.getElementById('filtroNombre').value.toLowerCase();
