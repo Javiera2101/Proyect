@@ -89,6 +89,7 @@ public class PublicacionAdminController {
 
     @PostMapping("/editar")
     @ResponseBody
+    @SuppressWarnings({ "UseSpecificCatch", "rawtypes" })
     public ResponseEntity<?> editarPublicacion(
         @RequestParam("idPublicacion") int idPublicacion,
         @RequestParam("nombrePublicacion") String nombrePublicacion,
