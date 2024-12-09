@@ -76,20 +76,26 @@
                     <ul class="list-group" id="proyectosList">
                         <li class="list-group-item">
                             <div class="row">
-                                <div class="col-md-3"><strong>Nombre</strong></div>
-                                <div class="col-md-3"><strong>Tipo</strong></div>
-                                <div class="col-md-3"><strong>Estado</strong></div>
-                                <div class="col-md-3"><strong>Fecha Inicio</strong></div>
+                                <div class="col-md-2"><strong>Nombre</strong></div>
+                                <div class="col-md-2"><strong>Tipo</strong></div>
+                                <div class="col-md-2"><strong>Estado</strong></div>
+                                <div class="col-md-2"><strong>Fecha Inicio</strong></div>
+                                <div class="col-md-2"><strong>Fecha Fin</strong></div>
                             </div>
                         </li>
                         <th:block th:each="proyecto : ${proyectos}">
                             <li class="list-group-item">
                                 <div class="row">
-                                    <div class="col-md-3" th:text="${proyecto.nombreProyecto}"></div>
-                                    <div class="col-md-3" th:text="${proyecto.tipoProyecto}"></div>
-                                    <div class="col-md-3" th:text="${proyecto.estadoProyecto}"></div>
-                                    <div class="col-md-3" 
+                                    <div class="col-md-2" th:text="${proyecto.nombreProyecto}"></div>
+                                    <div class="col-md-2" th:text="${proyecto.tipoProyecto}"></div>
+                                    <div class="col-md-2" th:text="${proyecto.estadoProyecto}"></div>
+                                    <div class="col-md-2" 
                                          th:text="${#temporals.format(proyecto.fechaInicioProyecto, 'dd/MM/yyyy')}">
+                                    </div>
+                                    <div class="col-md-2" 
+                                         th:text="${proyecto.fechaFinProyecto != null ? 
+                                                   #temporals.format(proyecto.fechaFinProyecto, 'dd/MM/yyyy') : 
+                                                   'No definida'}">
                                     </div>
                                 </div>
                             </li>
@@ -115,9 +121,9 @@
             $('#proyectosList .list-group-item').each(function(index) {
                 if (index === 0) return; // Ignorar la fila de encabezados
 
-                const nombreText = $(this).find('.col-md-3').eq(0).text().toLowerCase(); 
-                const tipoText = $(this).find('.col-md-3').eq(1).text().toLowerCase(); 
-                const estadoText = $(this).find('.col-md-3').eq(2).text().toLowerCase(); 
+                const nombreText = $(this).find('.col-md-2').eq(0).text().toLowerCase(); 
+                const tipoText = $(this).find('.col-md-2').eq(1).text().toLowerCase(); 
+                const estadoText = $(this).find('.col-md-2').eq(2).text().toLowerCase(); 
 
                 const isNombreMatch = nombreText.includes(nombre);
                 const isTipoMatch = tipoText.includes(tipo);
