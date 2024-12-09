@@ -53,7 +53,7 @@ public class SugerenciaEstudiante {
         this.estadoSugerenciaEstudiante = estadoSugerenciaEstudiante;
     }
 
-    public String getDescripcionSugerenciaAcademico() {
+    public String getDescripcionSugerenciaEstudiante() {
         return descripcionSugerenciaEstudiante;
     }
 

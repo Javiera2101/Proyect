@@ -23,8 +23,6 @@ public class SugerenciaEstudianteServiceImpl implements SugerenciaEstudianteServ
 
     @Override
     public List<SugerenciaEstudiante> obtenerSugerenciasPorEstudiante(Estudiante estudiante) {
-        return sugerenciaRepository.findAll().stream()
-            .filter(sugerencia -> sugerencia.getEstudiante().equals(estudiante))
-            .toList();
+        return sugerenciaRepository.findByEstudiante(estudiante);
     }
 }
