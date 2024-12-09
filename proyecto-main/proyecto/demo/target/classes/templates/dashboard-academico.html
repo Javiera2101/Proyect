@@ -81,8 +81,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Proyectos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Estudiantes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/publicaciones">Publicaciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/polo/proyectos/proyectos-polo">Proyectos</a></li>
                     <li class="nav-item">
                         <button id="btnCerrarSesion" class="btn btn-logout">Cerrar Sesión</button>
                     </li>
@@ -100,10 +100,9 @@
                 <div class="dashboard-card">
                     <i class="bi bi-journal-text feature-icon mb-3"></i>
                     <h5>Sugerencias</h5>
-                    <p>Total: <span th:text="${cantidadProyectos}">0</span></p>
                     <a href="/academico/sugerencias/crear" class="btn btn-ubb-orange">Crear sugerencias</a>
                     &nbsp
-                    <a href="/academico/sugerencias/crear" class="btn btn-ubb-orange">Ver sugerencias</a>
+                    <a href="/academico/sugerencias/crear" class="btn btn-ubb-orange">Ver mis sugerencias</a>
                 </div>
             </div>
             
@@ -111,7 +110,6 @@
                 <div class="dashboard-card">
                     <i class="bi bi-people feature-icon mb-3"></i>
                     <h5>Estudiantes Supervisados</h5>
-                    <p>Total: <span th:text="${cantidadEstudiantes}">0</span></p>
                     <button class="btn btn-ubb-orange">Ver Estudiantes</button>
                 </div>
             </div>
@@ -119,9 +117,8 @@
             <div class="col-md-6 col-lg-4">
                 <div class="dashboard-card">
                     <i class="bi bi-file-earmark-text feature-icon mb-3"></i>
-                    <h5>Publicaciones Académicas</h5>
-                    <p>Total: <span th:text="${cantidadPublicaciones}">0</span></p>
-                    <button class="btn btn-ubb-orange">Ver Publicaciones</button>
+                    <h5>Publicaciones</h5>
+                    <a href="/academico/publicaciones/crear" class="btn btn-ubb-orange">Crear publicaciones</a>
                 </div>
             </div>
         </div>
