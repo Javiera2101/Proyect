@@ -9,6 +9,7 @@ import com.example.demo.model.Polo;
 import com.example.demo.repository.AcademicoRepository;
 import com.example.demo.repository.EstudianteRepository;
 import com.example.demo.repository.PoloRepository;
+import com.example.demo.security.PasswordHasher;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -22,24 +23,33 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private PoloRepository poloRepository;
 
+    @Autowired
+    private PasswordHasher passwordHasher;
+
     @Override
     public String autenticarUsuario(String correo, String contrasena) throws Exception {
         // Buscar en académicos
         Academico academico = academicoRepository.findByCorreoUbb(correo);
-        if (academico != null && academico.getContrasenaAcademico().equals(contrasena)) {
-            return "academico";
+        if (academico != null) {
+            // Verificar si la contraseña coincide
+            if (passwordHasher.verifyPassword(academico.getContrasenaAcademico(), contrasena)) {
+                return "academico";
+            }
         }
 
-        // Buscar en estudiantes
+        // Hacer lo mismo para estudiantes y polos
         Estudiante estudiante = estudianteRepository.findByCorreoEstudiante(correo);
-        if (estudiante != null && estudiante.getContrasenaEstudiante().equals(contrasena)) {
-            return "estudiante";
+        if (estudiante != null) {
+            if (passwordHasher.verifyPassword(estudiante.getContrasenaEstudiante(), contrasena)) {
+                return "estudiante";
+            }
         }
 
-        // Buscar en polos
         Polo polo = poloRepository.findByCorreoPolo(correo);
-        if (polo != null && polo.getContrasenaPolo().equals(contrasena)) {
-            return "polo";
+        if (polo != null) {
+            if (passwordHasher.verifyPassword(polo.getContrasenaPolo(), contrasena)) {
+                return "polo";
+            }
         }
 
         throw new Exception("Credenciales inválidas");

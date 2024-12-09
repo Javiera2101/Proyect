@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.model.Academico;
 import com.example.demo.model.Estudiante;
 import com.example.demo.model.Polo;
+import com.example.demo.security.PasswordHasher;
 import com.example.demo.service.AcademicoService;
 import com.example.demo.service.EmailValidationService;
 import com.example.demo.service.EstudianteService;
@@ -33,6 +34,8 @@ public class RegistroController {
     @Autowired
     private EmailValidationService emailValidationService;
 
+    @Autowired
+    private PasswordHasher passwordHasher;
 
     @GetMapping("/registro")
     public String mostrarFormularioRegistro() {
@@ -45,6 +48,7 @@ public class RegistroController {
     public ResponseEntity<?> registrarUsuario(@RequestBody Map<String, String> datos) {
         String tipoUsuario = datos.get("tipoUsuario");
         String correo = datos.get("correo");
+        String contrasena = datos.get("contrasena");
         
         try {
             // Validación de correo con ZeroBounce
@@ -55,45 +59,48 @@ public class RegistroController {
             // Validación de correo único según el tipo de usuario
             switch (tipoUsuario) {
                 case "academico" -> {
-                    if (academicoService.existePorCorreo(correo)) {
-                        return ResponseEntity.badRequest().body(Map.of("error", "El correo ya está registrado para un académico"));
-                    }
+                    // Hashear contraseña antes de guardar
+                    String hashedPassword = passwordHasher.hashPassword(contrasena);
+                    
                     Academico academico = new Academico();
                     academico.setNomAcademico(datos.get("nombre"));
                     academico.setCorreoUbb(correo);
-                    academico.setContrasenaAcademico(datos.get("contrasena"));
+                    academico.setContrasenaAcademico(hashedPassword);
                     academico.setDepartamento(datos.get("departamento"));
+                    
                     academicoService.registrarAcademico(academico);
                 }
                 case "estudiante" -> {
-                    if (estudianteService.existePorCorreo(correo)) {
-                        return ResponseEntity.badRequest().body(Map.of("error", "El correo ya está registrado para un estudiante"));
-                    }
+                    // Hashear contraseña antes de guardar
+                    String hashedPassword = passwordHasher.hashPassword(contrasena);
+                    
                     Estudiante estudiante = new Estudiante();
                     estudiante.setNombreEstudiante(datos.get("nombre"));
                     estudiante.setCorreoEstudiante(correo);
-                    estudiante.setContrasenaEstudiante(datos.get("contrasena"));
+                    estudiante.setContrasenaEstudiante(hashedPassword);
                     estudiante.setCarreraEstudiante(datos.get("carrera"));
+                    
                     estudianteService.registrarEstudiante(estudiante);
                 }
                 case "polo" -> {
-                    if (poloService.existePorCorreo(correo)) {
-                        return ResponseEntity.badRequest().body(Map.of("error", "El correo ya está registrado para un polo"));
-                    }
+                    // Hashear contraseña antes de guardar
+                    String hashedPassword = passwordHasher.hashPassword(contrasena);
+                    
                     Polo polo = new Polo();
                     polo.setNombrePolo(datos.get("nombre"));
                     polo.setCorreoPolo(correo);
-                    polo.setContrasenaPolo(datos.get("contrasena"));
+                    polo.setContrasenaPolo(hashedPassword);
                     polo.setNumTelefono(Integer.parseInt(datos.get("numTelefono")));
+                    
                     poloService.registrarPolo(polo);
                 }
                 default -> {
-                    return ResponseEntity.badRequest().body(Map.of("error", "Tipo de usuario no válido"));
+                    return ResponseEntity.badRequest().body("Tipo de usuario no válido");
                 }
             }
             return ResponseEntity.ok("Registro exitoso");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(Map.of("error", "Error en el registro: " + e.getMessage()));
+            return ResponseEntity.badRequest().body("Error en el registro: " + e.getMessage());
         }
     }
 }
