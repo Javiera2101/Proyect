@@ -11,4 +11,5 @@ import com.example.demo.model.SugerenciaAcademico;
 @Repository
 public interface SugerenciaAcademicoRepository extends JpaRepository<SugerenciaAcademico, Integer> {
     List<SugerenciaAcademico> findByAcademico(Academico academico);
+    List<SugerenciaAcademico> findByEstadoSugerenciaAcademico(String estado);
 }

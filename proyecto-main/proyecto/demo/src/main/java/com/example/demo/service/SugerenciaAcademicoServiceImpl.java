@@ -25,4 +25,18 @@ public class SugerenciaAcademicoServiceImpl implements SugerenciaAcademicoServic
     public List<SugerenciaAcademico> obtenerSugerenciasPorAcademico(Academico academico) {
         return sugerenciaRepository.findByAcademico(academico);
     }
+
+    @Override
+    public List<SugerenciaAcademico> obtenerSugerenciasPendientes() {
+        return sugerenciaRepository.findByEstadoSugerenciaAcademico("Pendiente");
+    }
+
+    @Override
+    public SugerenciaAcademico actualizarEstadoSugerencia(int idSugerencia, String nuevoEstado) {
+        SugerenciaAcademico sugerencia = sugerenciaRepository.findById(idSugerencia)
+            .orElseThrow(() -> new RuntimeException("Sugerencia no encontrada"));
+        
+        sugerencia.setEstadoSugerenciaAcademico(nuevoEstado);
+        return sugerenciaRepository.save(sugerencia);
+    }
 }

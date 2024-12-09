@@ -8,4 +8,6 @@ import com.example.demo.model.SugerenciaAcademico;
 public interface SugerenciaAcademicoService {
     SugerenciaAcademico crearSugerencia(SugerenciaAcademico sugerencia, Academico academico);
     List<SugerenciaAcademico> obtenerSugerenciasPorAcademico(Academico academico);
+    List<SugerenciaAcademico> obtenerSugerenciasPendientes();
+    SugerenciaAcademico actualizarEstadoSugerencia(int idSugerencia, String nuevoEstado);
 }
