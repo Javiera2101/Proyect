@@ -32,7 +32,7 @@ public class SugerenciaPoloController {
     private PoloService poloService;
 
     @GetMapping("/revisar")
-    public String mostrarSugerenciasPendientes(Model model, HttpSession session) {
+    public String mostrarSugerencias(Model model, HttpSession session) {
         String correoUsuario = (String) session.getAttribute("correoUsuario");
         Polo polo = poloService.buscarPorCorreo(correoUsuario);
 
@@ -40,8 +40,9 @@ public class SugerenciaPoloController {
             return "redirect:/login";
         }
 
-        List<SugerenciaAcademico> sugerenciasPendientes = sugerenciaService.obtenerSugerenciasPendientes();
-        model.addAttribute("sugerenciasPendientes", sugerenciasPendientes);
+        // Cambiar de obtenerSugerenciasPendientes() a obtenerTodasSugerencias()
+        List<SugerenciaAcademico> sugerencias = sugerenciaService.obtenerTodasSugerencias();
+        model.addAttribute("sugerencias", sugerencias);
 
         return "sugerencias-pendientes-polo";
     }

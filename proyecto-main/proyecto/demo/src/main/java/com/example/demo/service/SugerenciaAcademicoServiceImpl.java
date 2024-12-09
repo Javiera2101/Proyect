@@ -39,4 +39,9 @@ public class SugerenciaAcademicoServiceImpl implements SugerenciaAcademicoServic
         sugerencia.setEstadoSugerenciaAcademico(nuevoEstado);
         return sugerenciaRepository.save(sugerencia);
     }
+
+    @Override
+    public List<SugerenciaAcademico> obtenerTodasSugerencias() {
+        return sugerenciaRepository.findAll();
+    }
 }

@@ -10,4 +10,5 @@ public interface SugerenciaAcademicoService {
     List<SugerenciaAcademico> obtenerSugerenciasPorAcademico(Academico academico);
     List<SugerenciaAcademico> obtenerSugerenciasPendientes();
     SugerenciaAcademico actualizarEstadoSugerencia(int idSugerencia, String nuevoEstado);
+    List<SugerenciaAcademico> obtenerTodasSugerencias();
 }
