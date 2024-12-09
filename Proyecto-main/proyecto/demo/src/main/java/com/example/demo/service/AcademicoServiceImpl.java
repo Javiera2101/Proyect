@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Academico;
+import com.example.demo.model.Estudiante;
 import com.example.demo.repository.AcademicoRepository;
+import com.example.demo.repository.EstudianteRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -16,6 +18,9 @@ public class AcademicoServiceImpl implements AcademicoService{
 
     @Autowired 
     AcademicoRepository repAcademico;
+
+    @Autowired
+    EstudianteRepository estudianteRepository;
 
     @Override
     public List<Academico> buscarTodosLosAcademicos() {
@@ -39,11 +44,6 @@ public class AcademicoServiceImpl implements AcademicoService{
     
     @Override
     public Academico registrarAcademico(Academico academico) {
-        // Aquí podrías agregar validaciones
-        // Por ejemplo, verificar que el correo termine en @ubb.cl
-        //if (!academico.getCorreo_ubb().endsWith("@ubb.cl")) {
-        //    throw new IllegalArgumentException("El correo debe ser institucional (@ubb.cl)");
-        //}
         return repAcademico.save(academico);
     }
 
@@ -55,5 +55,10 @@ public class AcademicoServiceImpl implements AcademicoService{
     @Override
     public boolean existePorCorreo(String correo) {
         return repAcademico.existsByCorreoUbb(correo);
+    }
+
+    @Override
+    public List<Estudiante> obtenerEstudiantes() {
+        return estudianteRepository.findAll();
     }
 }

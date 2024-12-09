@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.List;
 
 import com.example.demo.model.Academico;
+import com.example.demo.model.Estudiante;
 
 public interface AcademicoService {
     
@@ -19,4 +20,6 @@ public interface AcademicoService {
     Academico buscarPorCorreo(String correo);
 
     boolean existePorCorreo(String correo);
+
+    List<Estudiante> obtenerEstudiantes();
 }
