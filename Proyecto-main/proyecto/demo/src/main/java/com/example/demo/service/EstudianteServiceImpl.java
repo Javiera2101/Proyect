@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.Academico;
 import com.example.demo.model.Estudiante;
+import com.example.demo.repository.AcademicoRepository;
 import com.example.demo.repository.EstudianteRepository;
 
 import jakarta.transaction.Transactional;
@@ -16,6 +18,9 @@ public class EstudianteServiceImpl implements EstudianteService{
 
     @Autowired
     EstudianteRepository repEstudiante;
+
+    @Autowired
+    AcademicoRepository academicoRepository;
 
     @Override
     public List<Estudiante> buscarTodosLosEstudiantes() {
@@ -49,6 +54,11 @@ public class EstudianteServiceImpl implements EstudianteService{
 
     @Override
     public boolean existePorCorreo(String correo) {
-        return repEstudiante.existsByCorreoEstudiante(correo);
+        return repEstudiante.existsByCorreoEstudiante(correo);      
+    }
+
+    @Override
+    public List<Academico> obtenerAcademicos() {
+        return academicoRepository.findAll();
     }
 }
