@@ -32,4 +32,20 @@ public class PublicacionAcademicoServiceImpl implements PublicacionAcademicoServ
     public List<PublicacionAcademico> obtenerTodasLasPublicaciones() {
         return publicacionRepository.findAll();
     }
+
+    @Override
+    public void eliminarPublicacion(int id) {
+        publicacionRepository.deleteById(id);
+    }
+
+    @Override
+    public PublicacionAcademico obtenerPublicacionPorId(int id) {
+        return publicacionRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Publicación no encontrada"));
+    }
+
+    @Override
+    public void actualizarPublicacion(PublicacionAcademico publicacion) {
+        publicacionRepository.save(publicacion);
+    }
 }
